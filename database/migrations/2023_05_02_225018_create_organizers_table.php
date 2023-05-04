@@ -11,10 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('organizers', function (Blueprint $table) {
-            $table->primary("id");
+            $table->id();
             $table->string("firstName");
             $table->string("lastName");
-            $table->unique("email");
+            $table->string("email");
             $table->string("pwd");
             $table->string("organizationName");
             $table->timestamps();
