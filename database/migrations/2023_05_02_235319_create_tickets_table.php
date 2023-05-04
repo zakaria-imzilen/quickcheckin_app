@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string("status");
 
             $table->foreign("packId")->references("id")->on("event_packages");
-            $table->foreign("eventId")->references("id")->on("event");
+            $table->foreign("eventId")->references("id")->on("events");
             $table->foreign("userId")->references("id")->on("users");
             $table->timestamps();
         });

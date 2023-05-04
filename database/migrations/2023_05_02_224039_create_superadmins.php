@@ -11,11 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('superadmins', function (Blueprint $table) {
-            $table->primary('id');
+            $table->id();
             $table->string("firstName");
             $table->string("lastName");
             $table->string("pwd");
-            $table->unique("email");
+            $table->string("email")->unique();
             $table->integer("auth_code");
             $table->string("auth_expiring");
 
