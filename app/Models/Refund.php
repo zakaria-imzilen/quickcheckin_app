@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Refund extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "status",
+        "date",
+        "ticketId",
+    ];
 }

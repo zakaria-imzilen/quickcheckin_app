@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "creditCardNum",
+        "expiringDate",
+        "holderFullName",
+        "securityNumber",
+        "ticketId",
+        "userId",
+    ];
 }

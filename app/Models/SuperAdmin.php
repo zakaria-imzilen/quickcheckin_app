@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SuperAdmin extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "firstName",
+        "lastName",
+        "pwd",
+        "email",
+        "auth_code",
+        "auth_expiring",
+    ];
 }

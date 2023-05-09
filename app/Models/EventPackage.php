@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class EventPackage extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "name",
+        "price",
+        "eventId",
+    ];
 }
