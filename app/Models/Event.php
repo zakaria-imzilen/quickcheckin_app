@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    protected $fillable = [
+        'name',
+        "price",
+        "description",
+        "date",
+        "location",
+        "imageURL",
+        "status",
+        "placesNumber",
+        "type",
+        "organizerId",
+    ];
     use HasFactory;
 }
