@@ -39,6 +39,34 @@ class SuperAdminController extends Controller
 
     public function checkCode(Request $request)
     {
+        $result = SuperAdmin::where('id', $request->id)->get();
+        if (count($result) == 1) {
+            // Check the validaty of the code (Expiring date)
+            if (
+                (strtotime($result[0]['auth_expiring']) - strtotime(now()->format('h:m:i'))) > 50
+            ) {
+                if ($request->auth_code == $result[0]['auth_code']) {
+                    $updateCode = SuperAdmin::where('id', $request->id)->update([
+                        'auth_code' => 0,
+                        'auth_expiring' => ''
+                    ]);
 
+                    if ($updateCode == 1) {
+                        return json_encode([
+                            'updated' => true
+                        ]);
+                    } else {
+                        return json_encode([
+                            'updated' => false
+                        ]);
+                    }
+                }
+            }
+            return json_encode([
+                'updated' => false
+            ]);
+        } else {
+            abort(500, "SuperAdmin doesn't exist");
+        }
     }
 }

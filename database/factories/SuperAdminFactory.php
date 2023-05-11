@@ -17,7 +17,7 @@ class SuperAdminFactory extends Factory
             "pwd" => fake()->password(),
             "email" => fake()->email(),
             "auth_code" => fake()->randomNumber(4),
-            "auth_expiring" => fake()->date(),
+            "auth_expiring" => date('H:i:s', strtotime('+15 minutes') + 60 * 60),
         ];
     }
 }
