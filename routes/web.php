@@ -1,16 +1,20 @@
 <?php
 
-use App\Http\Controllers\EventController;
-use Illuminate\Support\Facades\Route;
+// << Event Routes
+require('events.php');
+// >>
 
+// << SuperAdmin Routes
+require('superadmins.php');
+// >>
 
-Route::get('/events', [EventController::class, 'display']);
+// << Organizer Routes
+require('organizers.php');
+// >>
 
-Route::get('/events/{q}', [EventController::class, 'searchEvent']);
-
-Route::post('/events/add', [EventController::class, 'addEvent']);
-
-Route::post('/event/edit/{id}', [EventController::class, 'editEvent']);
+// << Use rRoutes
+require('users.php');
+// >>
 
 Route::get('/{any}', function () {
     return view('app');
