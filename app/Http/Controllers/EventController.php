@@ -7,21 +7,21 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    function display($limit = 10, $skip = 0)
+    public function display($limit = 10, $skip = 0)
     {
         $event = new Event;
 
         return $event->get()->skip($skip)->take($limit);
     }
 
-    function searchEvent(Request $request, $q)
+    public function searchEvent(Request $request, $q)
     {
         $result = Event::where('name', 'LIKE', '%' . $q . '%')->get();
 
         return $result;
     }
 
-    function addEvent(Request $request)
+    public function addEvent(Request $request)
     {
         $newEvent = Event::create($request->all());
         return $newEvent;
