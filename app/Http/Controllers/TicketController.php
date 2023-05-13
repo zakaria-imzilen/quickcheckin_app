@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -33,18 +34,52 @@ class TicketController extends Controller
         ]);
     }
 
-    public function buyTicket(Request $request)
+    public function buyTicket($ticket, $payment)
     {
-        $result = Ticket::create($request->all());
+        $resultTicket = Ticket::create($ticket);
+        $resultPayment = Payment::create($payment);
 
-        if (gettype($result->id) === "integer") {
-            return json_encode([
-                "created" => true,
-                "id" => $result->id
-            ]);
+        $toReturn = [
+            "ticket" => [
+                "created" => false,
+                "id" => null
+            ],
+            "payment" => [
+                "created" => false,
+                "id" => null
+            ],
+        ];
+
+        if (gettype($resultTicket->id) === "integer") {
+            $toReturn["ticket"]["created"] = true;
+            $toReturn["ticket"]["id"] = $resultTicket->id;
+
+            if (gettype($resultPayment->id) === "integer") {
+                $toReturn["payment"]["created"] = true;
+                $toReturn["payment"]["id"] = $resultPayment->id;
+            }
         }
+
+        return $toReturn;
+    }
+
+    public function buyTickets(Request $request)
+    {
+        $tickets = $request->tickets;
+        $payment = $request->payment;
+
+        $allGood = true;
+        foreach ($tickets as $ticket) {
+            $resp = $this->buyTicket($ticket, $payment);
+
+            if (!$resp["ticket"]["created"] or !$resp["payment"]["created"]) {
+                $allGood = false;
+                break;
+            }
+        }
+
         return json_encode([
-            "created" => false
+            "created" => $allGood
         ]);
     }
 }
