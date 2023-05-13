@@ -17,7 +17,7 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            "date" => fake()->date(),
+            "date" => fake()->dateTimeThisYear(),
             "packId" => fake()->numberBetween(1, 15),
             "eventId" => fake()->numberBetween(1, 10),
             "userId" => fake()->numberBetween(1, 60),

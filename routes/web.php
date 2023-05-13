@@ -16,6 +16,10 @@ require('organizers.php');
 require('users.php');
 // >>
 
+// << Use rRoutes
+require('tickets.php');
+// >>
+
 Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*');
