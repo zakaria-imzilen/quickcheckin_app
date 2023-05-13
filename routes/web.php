@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\RefundController;
 
 // << Event Routes
 require('events.php');
@@ -19,6 +20,8 @@ require('users.php');
 // << Use rRoutes
 require('tickets.php');
 // >>
+
+Route::post('/refunds/edit', [RefundController::class, 'editRefund']);
 
 Route::get('/{any}', function () {
     return view('app');
