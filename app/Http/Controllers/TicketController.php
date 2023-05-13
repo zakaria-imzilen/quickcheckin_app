@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Refund;
 use App\Models\Ticket;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -25,9 +26,19 @@ class TicketController extends Controller
     {
         $result = Ticket::where('id', $ticketId)->update(['status' => 'canceled']);
         if ($result === 1) {
-            return json_encode([
-                "updated" => true
+            $resultRefund = Refund::create([
+                "status" => "active",
+                "date" => now()->toDateString(),
+                "ticketId" => $ticketId,
             ]);
+
+            if (gettype($resultRefund->id) === "integer") {
+                return json_encode([
+                    "updated" => true
+                ]);
+            } else {
+                Ticket::where('id', $ticketId)->update(['status' => 'active']);
+            }
         }
         return json_encode([
             "updated" => false
