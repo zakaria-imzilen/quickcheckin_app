@@ -10,6 +10,7 @@ Route::get('/events/{q}', [EventController::class, 'searchEvent']);
 
 Route::post('/events/add', [EventController::class, 'addEvent']);
 
-Route::post('/event/edit/{id}', [EventController::class, 'editEvent']);
+Route::get('/event/{eventId}', [EventController::class, 'displayEventDetails']);
 
+Route::post('/event/edit/{id}', [EventController::class, 'editEvent']);
 // >>

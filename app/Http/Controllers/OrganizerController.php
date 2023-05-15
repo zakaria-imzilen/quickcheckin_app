@@ -10,7 +10,7 @@ class OrganizerController extends Controller
     public function displayAll($limit = 10, $skip = 0)
     {
         $organizers = new Organizer;
-        return $organizers->get()->skip($skip)->take($limit);
+        return json_encode($organizers->get()->skip($skip)->take($limit));
     }
 
     public function search($q)
@@ -19,9 +19,9 @@ class OrganizerController extends Controller
 
         if (count($resultFN) === 0) {
             $resultLN = Organizer::where('lastName', 'LIKE', '%' . $q . '%')->get();
-            return $resultLN;
+            return json_encode($resultLN);
         }
-        return $resultFN;
+        return json_encode($resultFN);
     }
 
     public function signUp(Request $request)

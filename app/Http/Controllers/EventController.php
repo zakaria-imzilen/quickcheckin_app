@@ -28,27 +28,62 @@ class EventController extends Controller
     {
         $result = Event::where('name', 'LIKE', '%' . $q . '%')->get();
 
+        if (count($result) === 0) {
+            $resultDesc = Event::where('description', 'LIKE', '%' . $q . '%')->get();
+
+            if (count($resultDesc) === 0) {
+                $resultLoc = Event::where('location', 'LIKE', '%' . $q . '%')->get();
+                return $resultLoc;
+            }
+
+            return $resultDesc;
+        }
+
         return $result;
     }
 
     public function addEvent(Request $request)
     {
         $newEvent = Event::create($request->all());
-        return $newEvent;
+
+        if (gettype($newEvent->id) == "integer") {
+            return json_encode([
+                "created" => true
+            ]);
+        }
+
+        return json_encode([
+            "created" => false
+        ]);
     }
 
     public function displayEventDetails($eventId)
     {
         $result = Event::where('id', $eventId)->get();
 
-        return $result;
+        if (count($result) === 0) {
+            return json_encode([
+                "status" => 404
+            ]);
+        }
+
+        return json_encode($result[0]);
     }
 
     public function editEvent(Request $request, $id)
     {
         $result = Event::where('id', $id)
             ->update($request->all());
-        return $result;
+
+        if ($result === 1) {
+            return json_encode([
+                "updated" => true
+            ]);
+        }
+
+        return json_encode([
+            "updated" => false
+        ]);
     }
 
 }

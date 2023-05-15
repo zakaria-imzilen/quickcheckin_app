@@ -13,11 +13,12 @@ class RefundController extends Controller
 
         if ($result === 1) {
             return json_encode([
-                "edited" => true
+                "updated" => true
             ]);
         }
         return json_encode([
-            "edited" => false
+            "updated" => false,
+            "message" => "Refund record not found"
         ]);
     }
 }

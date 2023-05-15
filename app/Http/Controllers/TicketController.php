@@ -16,11 +16,6 @@ class TicketController extends Controller
         return json_encode($result);
     }
 
-    public function displayTicketsByEvent($eventId)
-    {
-        $result = Ticket::where('eventId', $eventId)->get();
-        return json_encode($result);
-    }
 
     public function cancelTicket($ticketId)
     {
@@ -38,10 +33,16 @@ class TicketController extends Controller
                 ]);
             } else {
                 Ticket::where('id', $ticketId)->update(['status' => 'active']);
+
+                return json_encode([
+                    "updated" => false,
+                    "message" => "Could not refund the ticket"
+                ]);
             }
         }
         return json_encode([
-            "updated" => false
+            "updated" => false,
+            "message" => "Either ticket not found, or an issue in SQL Query insert"
         ]);
     }
 

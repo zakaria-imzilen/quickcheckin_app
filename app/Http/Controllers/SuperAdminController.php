@@ -28,12 +28,21 @@ class SuperAdminController extends Controller
         // IF SO --> Generate a new Auth_Code
         if (count($result) === 1) {
             if ($this->generate_auth_code($result[0]['id'])) {
-                return true;
+                return json_encode([
+                    "status" => true,
+                    "message" => "Auth Code Generated successfuly"
+                ]);
             } else {
-                abort(500, "Something went wrong with generating an authentication code");
+                return json_encode([
+                    "status" => false,
+                    "message" => "Something went wrong with generating an authentication code"
+                ]);
             }
         } else {
-            return [];
+            return json_encode([
+                "status" => false,
+                "message" => "SuperAdmin not found"
+            ]);
         }
     }
 
@@ -53,20 +62,25 @@ class SuperAdminController extends Controller
 
                     if ($updateCode == 1) {
                         return json_encode([
-                            'updated' => true
+                            'status' => true
                         ]);
                     } else {
                         return json_encode([
-                            'updated' => false
+                            'status' => false,
+                            'message' => 'Could not reset Auth code'
                         ]);
                     }
                 }
             }
             return json_encode([
-                'updated' => false
+                'status' => false,
+                'message' => 'Auth Code expired'
             ]);
         } else {
-            abort(500, "SuperAdmin doesn't exist");
+            return json_encode([
+                'status' => false,
+                'message' => 'SuperAdmin not found'
+            ]);
         }
     }
 }
