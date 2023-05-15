@@ -45,8 +45,8 @@ class OrganizerTest extends TestCase
         $this->withoutMiddleware();
 
         $response = $this->post("/sa/organizers/login", [
-            "email" => "deborah.frami@hotmail.com",
-            "pwd" => "yLD@Mn=LE6Q&"
+            "email" => "zakaria@gmail.com",
+            "pwd" => "password"
         ]);
 
         $response->assertJsonStructure(
@@ -68,7 +68,7 @@ class OrganizerTest extends TestCase
         $this->withoutMiddleware();
 
         $response = $this->post("/sa/organizers/edit", [
-            "id" => 1,
+            "id" => 4,
             "firstName" => "Ayman",
             "lastName" => "Farouki",
             "email" => "ayman@gmail.com",

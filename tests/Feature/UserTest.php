@@ -53,11 +53,11 @@ class UserTest extends TestCase
 
         $response = $this->post('/us/edit', [
             "id" => 91,
-            "email" => "zakaria1@gmail.com",
+            "email" => "zakariyimzilen@gmail.com",
             "pwd" => "ZakariaPWD",
             "newData" => [
-                "email" => "zakariyimzilen@gmail.com",
-                "sexe" => "men"
+                "email" => "zakariyimzilen1@gmail.com",
+                "sexe" => "TopG"
             ]
         ]);
 

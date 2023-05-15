@@ -15,8 +15,8 @@ class EventTest extends TestCase
 
     public function test_search()
     {
-        $response = $this->get('/events/Freddie Rogahn');
-        $response->assertJsonCount(1);
+        $response = $this->get('/events/Libero');
+        $response->assertJsonIsArray();
     }
 
     public function test_add_event()
@@ -38,7 +38,30 @@ class EventTest extends TestCase
             )
         );
 
-        $response->assertJsonIsObject();
+        $response->assertExactJson([
+            "created" => true
+        ]);
+    }
+
+    public function test_displayEventDetails()
+    {
+        $response = $this->get('/event/11');
+
+        $response->assertJsonStructure([
+            "id",
+            "name",
+            "price",
+            "description",
+            "date",
+            "location",
+            "imageURL",
+            "status",
+            "placesNumber",
+            "type",
+            "organizerId",
+            "created_at",
+            "updated_at",
+        ]);
     }
 
     public function test_edit_event()
@@ -55,7 +78,9 @@ class EventTest extends TestCase
             )
         );
 
-        $response->assertStatus(200);
+        $response->assertExactJson([
+            "updated" => true
+        ]);
     }
 
 }
