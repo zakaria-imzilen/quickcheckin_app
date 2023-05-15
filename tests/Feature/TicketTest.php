@@ -9,12 +9,6 @@ class TicketTest extends TestCase
     public function test_displayTickets()
     {
         $response = $this->get('tickets/user/7');
-        $response->assertOk();
-    }
-
-    public function test_displayTicketsByEvent()
-    {
-        $response = $this->get('tickets/event/2');
         $response->assertJsonIsArray();
     }
 

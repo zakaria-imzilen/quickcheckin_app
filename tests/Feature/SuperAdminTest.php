@@ -12,11 +12,14 @@ class SuperAdminTest extends TestCase
     {
         $this->withoutMiddleware();
         $response = $this->post('/sa/auth/login', [
-            'email' => "lilliana80@parker.com",
-            'pwd' => ')_*uh-w2vDvtD"c'
+            'email' => "witting.gabriella@gottlieb.biz",
+            'pwd' => '~SKDpXL"4%I7&d'
         ]);
 
-        $response->assertValid();
+        $response->assertExactJson([
+            "status" => true,
+            "message" => "Auth Code Generated successfuly"
+        ]);
     }
 
     public function test_check_code()
@@ -24,11 +27,11 @@ class SuperAdminTest extends TestCase
         $this->withoutMiddleware();
         $response = $this->post('/sa/auth/validate', [
             'id' => 1,
-            'auth_code' => 8108
+            'auth_code' => 7120
         ]);
 
         $response->assertExactJson([
-            'updated' => true
+            'status' => true
         ]);
     }
 }

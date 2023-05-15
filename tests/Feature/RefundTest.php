@@ -20,7 +20,7 @@ class RefundTest extends TestCase
         ]);
 
         $response->assertExactJson([
-            "edited" => true
+            "updated" => true
         ]);
     }
 }
