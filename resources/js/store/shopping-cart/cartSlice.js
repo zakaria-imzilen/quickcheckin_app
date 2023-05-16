@@ -522,4 +522,4 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart, deleteCommand } = cartSlice.actions;
-export default cartSlice;
+export default cartSlice.reducer;
