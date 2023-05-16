@@ -16,7 +16,7 @@ class EventController extends Controller
         $toBeReturned = [];
         foreach ($events as $eve) {
             $packResult = EventPackage::where('eventId', $eve['id'])->get();
-            $eventObj = [$eve, "packages" => $packResult];
+            $eventObj = ["event" => $eve, "packages" => $packResult];
 
             array_push($toBeReturned, $eventObj);
         }
