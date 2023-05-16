@@ -19,7 +19,7 @@ class EventController extends Controller
             $packResult = EventPackage::where('eventId', $eve['id'])->get();
             $categoryResult = Category::where('id', $eve['categoryId'])->get();
 
-            $eventObj = ["event" => $eve, "category" => $categoryResult, "packages" => $packResult];
+            $eventObj = ["event" => $eve, "category" => $categoryResult[0], "packages" => $packResult];
 
             array_push($toBeReturned, $eventObj);
         }
