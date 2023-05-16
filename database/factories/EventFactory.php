@@ -17,7 +17,6 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             "name" => fake()->name(),
             "price" => fake()->numberBetween(200, 1000),
             "description" => fake()->text(),
@@ -26,7 +25,7 @@ class EventFactory extends Factory
             "imageURL" => fake()->imageUrl(),
             "status" => fake()->text(),
             "placesNumber" => fake()->numberBetween(20, 600),
-            "type" => fake()->text(),
+            "categoryId" => fake()->numberBetween(1, 6),
             "organizerId" => fake()->numberBetween(1, 2),
         ];
     }

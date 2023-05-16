@@ -33,7 +33,7 @@ class EventTest extends TestCase
                 'imageURL' => 'https://via.placeholder.com/640x480.png/00aa77?text=qui',
                 'status' => 'paused',
                 'placesNumber' => 200,
-                'type' => 'food',
+                'categoryId' => 2,
                 'organizerId' => 1
             )
         );
@@ -74,7 +74,7 @@ class EventTest extends TestCase
                 'imageURL' => 'https://via.placeholder.com/640x480.png/00aa77?text=qui',
                 'status' => 'paused',
                 'placesNumber' => 200,
-                'type' => 'food',
+                'categoryId' => 4,
             )
         );
 

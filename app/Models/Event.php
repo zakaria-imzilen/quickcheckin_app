@@ -16,7 +16,7 @@ class Event extends Model
         "imageURL",
         "status",
         "placesNumber",
-        "type",
+        "categoryId",
         "organizerId",
     ];
     use HasFactory;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\EventPackage;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class EventController extends Controller
         $toBeReturned = [];
         foreach ($events as $eve) {
             $packResult = EventPackage::where('eventId', $eve['id'])->get();
-            $eventObj = ["event" => $eve, "packages" => $packResult];
+            $categoryResult = Category::where('id', $eve['categoryId'])->get();
+
+            $eventObj = ["event" => $eve, "category" => $categoryResult, "packages" => $packResult];
 
             array_push($toBeReturned, $eventObj);
         }

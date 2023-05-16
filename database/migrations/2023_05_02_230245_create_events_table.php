@@ -20,10 +20,12 @@ return new class extends Migration {
             $table->string("imageURL");
             $table->string("status");
             $table->integer("placesNumber");
-            $table->string("type");
+            $table->unsignedBigInteger("categoryId");
             $table->unsignedBigInteger("organizerId");
 
             $table->foreign("organizerId")->references("id")->on("organizers");
+            $table->foreign("categoryId")->references("id")->on("categories");
+
             $table->timestamps();
         });
     }
