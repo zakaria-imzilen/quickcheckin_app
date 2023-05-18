@@ -19,7 +19,7 @@ class EventPackageFactory extends Factory
         return [
             "name" => fake()->name(),
             "price" => fake()->numberBetween(100, 500),
-            "eventId" => fake()->numberBetween(1, 10),
+            "eventId" => fake()->numberBetween(1, 80),
         ];
     }
 }

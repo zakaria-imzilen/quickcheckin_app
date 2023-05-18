@@ -17,11 +17,33 @@ export const fetchCategories = createAsyncThunk(
     }
 );
 
+export const fetchCategoryEvents = createAsyncThunk(
+    "/events/category/fetch",
+    async (id) => {
+        const response = await fetch(`/events/categories/${id}`);
+        const data = await response.json();
+
+        return data;
+    }
+);
+
+export const displayEventDetails = createAsyncThunk(
+    "/event/fetch",
+    async (id) => {
+        const response = await fetch(`/event/${id}`);
+        const data = await response.json();
+
+        return data;
+    }
+);
+
 const eventSlice = createSlice({
     name: "event",
     initialState: {
         data: [],
         categories: [],
+        currentCategoryEvents: [],
+        currentEvent: {},
     },
     extraReducers: (builder) => {
         builder.addCase(fetchEvents.fulfilled, (state, { payload }) => {
@@ -29,6 +51,12 @@ const eventSlice = createSlice({
         });
         builder.addCase(fetchCategories.fulfilled, (state, { payload }) => {
             state.categories = payload;
+        });
+        builder.addCase(fetchCategoryEvents.fulfilled, (state, { payload }) => {
+            state.currentCategoryEvents = payload;
+        });
+        builder.addCase(displayEventDetails.fulfilled, (state, { payload }) => {
+            state.currentEvent = payload;
         });
     },
 });

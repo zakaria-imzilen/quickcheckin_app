@@ -38,9 +38,7 @@ const Navbar = () => {
                                 return (
                                     <li className="nav-item" key={item.id}>
                                         <span className="nav-link">
-                                            <NavLink
-                                                to={`products/${item.name}`}
-                                            >
+                                            <NavLink to={`category/${item.id}`}>
                                                 {item.name}
                                             </NavLink>
                                         </span>

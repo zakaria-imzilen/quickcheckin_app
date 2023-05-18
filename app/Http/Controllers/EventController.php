@@ -94,4 +94,20 @@ class EventController extends Controller
         $categories = Category::get();
         return json_encode($categories);
     }
+
+    public function displayCategoryEvents(Request $request, $categoryId)
+    {
+        $events = Event::where('categoryId', $categoryId)->get();
+
+        $toBeReturned = [];
+        foreach ($events as $event) {
+            $packResult = EventPackage::where('eventId', $event['id'])->get();
+            $eventObj = ["event" => $event, "packages" => $packResult];
+
+            array_push($toBeReturned, $eventObj);
+        }
+
+
+        return json_encode($toBeReturned);
+    }
 }

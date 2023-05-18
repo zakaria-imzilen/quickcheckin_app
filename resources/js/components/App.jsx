@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import Home from "./Home";
-import Product from "./Product";
+import Category from "./Category";
 import DetailsEvent from "./DetailsEvent";
 import Panier from "./Panier";
 
@@ -14,11 +14,8 @@ function App() {
             <Navbar />
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/products/:category" element={<Product />} />
-                <Route
-                    path="/products/:id/DetailsEvent/:idEvent"
-                    element={<DetailsEvent />}
-                />
+                <Route path="/category/:categoryId" element={<Category />} />
+                <Route path="/event/:eventId" element={<DetailsEvent />} />
                 <Route exact path="/Panier" element={<Panier />} />
             </Routes>
         </>
