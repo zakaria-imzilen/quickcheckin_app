@@ -89,4 +89,9 @@ class EventController extends Controller
         ]);
     }
 
+    public function displayCategories()
+    {
+        $categories = Category::get();
+        return json_encode($categories);
+    }
 }

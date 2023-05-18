@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { fetchCategories } from "../store/eventSlice";
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-
-    const state = useSelector((state) => state.cart.category);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        let isCancelled = false;
-        if (!isCancelled) {
-            // console.log('state')
-        }
-        return () => {
-            // console.log(state)
-            // state.map(x=>{
-            //   console.log(x.title)
-            // })
-            isCancelled = true;
-        };
-    }, [toggle]);
+        dispatch(fetchCategories());
+    }, []);
+
+    const categories = useSelector((state) => state.event.categories);
 
     return (
         <div>
@@ -42,14 +34,14 @@ const Navbar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            {state.map((item) => {
+                            {categories.map((item) => {
                                 return (
                                     <li className="nav-item" key={item.id}>
                                         <span className="nav-link">
                                             <NavLink
                                                 to={`products/${item.name}`}
                                             >
-                                                {item.title}
+                                                {item.name}
                                             </NavLink>
                                         </span>
                                     </li>

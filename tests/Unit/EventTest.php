@@ -83,4 +83,9 @@ class EventTest extends TestCase
         ]);
     }
 
+    public function test_displayCategories()
+    {
+        $response = $this->get('/events/categories');
+        $response->assertJsonCount(6);
+    }
 }
