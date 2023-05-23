@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string("location");
             $table->string("imageURL");
             $table->string("status");
+            $table->string("slug");
             $table->integer("placesNumber");
             $table->unsignedBigInteger("categoryId");
             $table->unsignedBigInteger("organizerId");

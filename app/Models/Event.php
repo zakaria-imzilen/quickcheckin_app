@@ -17,6 +17,7 @@ class Event extends Model
         "status",
         "placesNumber",
         "categoryId",
+        "slug",
         "organizerId",
     ];
     use HasFactory;

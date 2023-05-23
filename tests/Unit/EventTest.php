@@ -64,6 +64,13 @@ class EventTest extends TestCase
         ]);
     }
 
+    public function test_displayEventDetailsBySlug()
+    {
+        $response = $this->get("/api/event/slug/iste-architecto-ea-maiores-distinctio-consequatur-magnam-omnis");
+
+        $response->assertJsonIsObject();
+    }
+
     public function test_edit_event()
     {
         $this->withoutMiddleware();

@@ -73,6 +73,19 @@ class EventController extends Controller
         return json_encode($result[0]);
     }
 
+    public function displayEventDetailsBySlug($slug)
+    {
+        $result = Event::where('slug', $slug)->get();
+
+        if (count($result) === 0) {
+            return json_encode([
+                "status" => 404
+            ]);
+        }
+
+        return json_encode($result[0]);
+    }
+
     public function editEvent(Request $request, $id)
     {
         $result = Event::where('id', $id)

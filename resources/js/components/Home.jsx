@@ -1,7 +1,7 @@
 import Slide from "./Slide";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { fetchEvents } from "../store/eventSlice";
 
 const Home = () => {
@@ -35,13 +35,15 @@ const Home = () => {
                                 <div className="mt-4 flex justify-between">
                                     <div>
                                         <h3 className="text-sm text-gray-700">
-                                            <a href={event.event.name}>
+                                            <Link
+                                                to={"event/" + event.event.slug}
+                                            >
                                                 <span
                                                     aria-hidden="true"
                                                     className="absolute inset-0"
                                                 />
                                                 {event.event.name}
-                                            </a>
+                                            </Link>
                                         </h3>
                                         <p className="mt-1 text-sm text-gray-500">
                                             {event.event.description}

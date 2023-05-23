@@ -15,8 +15,8 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/category/:categoryId" element={<Category />} />
-                <Route path="/event/:eventId" element={<DetailsEvent />} />
-                <Route exact path="/Panier" element={<Panier />} />
+                <Route path="/event/:slug" element={<DetailsEvent />} />
+                <Route path="/Panier" element={<Panier />} />
             </Routes>
         </>
     );

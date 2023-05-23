@@ -5,7 +5,7 @@ import { addToCart } from "../store/shopping-cart/cartSlice";
 import { displayEventDetails } from "../store/eventSlice";
 
 const DetailsEvent = () => {
-    const { eventId } = useParams();
+    const { slug } = useParams();
 
     const details = useSelector((state) => state.event.currentEvent);
 
@@ -15,8 +15,9 @@ const DetailsEvent = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(displayEventDetails(eventId));
-    }, [eventId]);
+        console.log(slug);
+        dispatch(displayEventDetails(slug));
+    }, [slug]);
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -58,17 +59,17 @@ const DetailsEvent = () => {
 
     return (
         <div>
-            {/* <h2>id : {eventBycategory.id}</h2>
-            <h2>category : {eventBycategory.category}</h2>
-            <h2>date : {eventBycategory.date}</h2>
-            <h2>location : {eventBycategory.location}</h2>
-            <h2>name : {eventBycategory.name}</h2>
-            <h2>pric : {eventBycategory.pric}</h2>
-            <h2>title : {eventBycategory.title}</h2>
-            <h2>Description : {eventBycategory.Description}</h2>
-            <img src={eventBycategory.imageURL} alt="" />
+            <h2>id : {details.id}</h2>
+            {/* <h2>category : {details.category}</h2> */}
+            <h2>date : {details.date}</h2>
+            <h2>location : {details.location}</h2>
+            <h2>name : {details.name}</h2>
+            {/* <h2>pric : {details.price}</h2> */}
+            <h2>title : {details.name}</h2>
+            <h2>Description : {details.description}</h2>
+            <img src={details.imageURL} alt="" />
 
-            <form className="container mt-5">
+            {/* <form className="container mt-5">
                 <legend>{eventBycategory.date}</legend>
                 <div className="mb-3 col-9 ">
                     <select

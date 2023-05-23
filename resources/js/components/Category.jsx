@@ -73,7 +73,7 @@ const Category = () => {
                                             </div>
                                             <NavLink
                                                 className=" col btn btn-primary"
-                                                to={`/event/${event.event.id}`}
+                                                to={`/event/${event.event.slug}`}
                                             >
                                                 view details
                                             </NavLink>
