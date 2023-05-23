@@ -19,41 +19,32 @@ const Home = () => {
             <div className="bg-white">
                 <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                        Customers also purchased
+                        Events List
                     </h2>
 
-                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                        {events.map((event) => (
-                            <div key={event.id} className="group relative">
-                                <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                                    <img
-                                        src={event.event.imageURL}
-                                        alt={event.event.name}
-                                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                                    />
-                                </div>
-                                <div className="mt-4 flex justify-between">
-                                    <div>
-                                        <h3 className="text-sm text-gray-700">
-                                            <Link
-                                                to={"event/" + event.event.slug}
-                                            >
-                                                <span
-                                                    aria-hidden="true"
-                                                    className="absolute inset-0"
-                                                />
-                                                {event.event.name}
-                                            </Link>
-                                        </h3>
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            {event.event.description}
-                                        </p>
-                                    </div>
-                                    <p className="text-sm font-medium text-gray-900">
-                                        {event.event.price}
+                    <div
+                        id="events_section"
+                        className="mt-6 flex flex-wrap gap-2"
+                    >
+                        {events.map(({ event }) => (
+                            <Link
+                                to={`/event/${event.slug}`}
+                                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:gap-2 md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            >
+                                <img
+                                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                                    src={event.imageURL}
+                                    alt=""
+                                />
+                                <div className="flex flex-col px-2 justify-between leading-normal">
+                                    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        {event.name}
+                                    </h5>
+                                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                                        {event.description}
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
