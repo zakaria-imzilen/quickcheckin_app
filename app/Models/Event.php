@@ -20,5 +20,11 @@ class Event extends Model
         "slug",
         "organizerId",
     ];
+
     use HasFactory;
+
+    public function event_packages()
+    {
+        return $this->hasMany(EventPackage::class, 'eventId');
+    }
 }

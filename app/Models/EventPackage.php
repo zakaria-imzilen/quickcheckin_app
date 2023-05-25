@@ -13,4 +13,9 @@ class EventPackage extends Model
         "price",
         "eventId",
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'eventId');
+    }
 }
