@@ -37,7 +37,7 @@ const DetailsEvent = () => {
     }, [slug]);
 
     // function add to cart and add details ticket to cart
-    const handleCommand = () => {
+    const handleAddToCart = () => {
         if (Number(quantityVal) > 0 && selectedTicket !== null) {
             // Current date and time
             const currentDateTime = new Date();
@@ -47,13 +47,11 @@ const DetailsEvent = () => {
             const hours = currentDateTime.getHours();
             const minutes = currentDateTime.getMinutes();
             const seconds = currentDateTime.getSeconds();
-            // console.log(`Current date and time: ${year}-${month}-${day} ${hours}:${minutes}:${seconds}`);
 
             // Generates a random number => id_ticket_category
             let randomNumber = Math.random(
                 Math.floor(Math.random() * Math.random())
             );
-            // console.log(randomNumber);
 
             dispatch(
                 addToCart({
@@ -61,6 +59,14 @@ const DetailsEvent = () => {
                     eventPackage: Number(selectedTicket), //referenceTicketId
                     eventId: event.id,
                     quantityValueTicket: Number(quantityVal),
+                    event: {
+                        name: event.name,
+                        category: category.name,
+                        unitPrice: packages.filter(
+                            (pack) => pack.id === selectedTicket
+                        )[0].price,
+                        image: event.imageURL,
+                    },
                     date: `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`,
                 })
             );
@@ -187,7 +193,7 @@ const DetailsEvent = () => {
                                 className={`flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
                                     selectedTicket === null ? "disabled" : ""
                                 }`}
-                                onClick={() => handleCommand()}
+                                onClick={() => handleAddToCart()}
                             >
                                 Add to Cart
                             </button>
