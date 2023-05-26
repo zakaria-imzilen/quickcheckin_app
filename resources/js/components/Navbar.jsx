@@ -41,9 +41,9 @@ const Navbar = () => {
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                         ></path>
                     </svg>
                 </button>
@@ -53,7 +53,10 @@ const Navbar = () => {
                 >
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         {categories.map((category) => (
-                            <li className="p-2 px-3 rounded-md hover:bg-blue-700 hover:text-white text-slate-600 transition-colors">
+                            <li
+                                key={category.id}
+                                className="p-2 px-3 rounded-md hover:bg-blue-700 hover:text-white text-slate-600 transition-colors"
+                            >
                                 <Link
                                     to={`/category/${category.id}`}
                                     className="block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"

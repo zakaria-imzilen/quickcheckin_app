@@ -76,6 +76,8 @@ class EventController extends Controller
     public function displayEventDetailsBySlug($slug)
     {
         $result = Event::where('slug', $slug)->get();
+        $packResult = EventPackage::where('eventId', $result[0]['id'])->get();
+        $categoryResult = Category::where('id', $result[0]['categoryId'])->get();
 
         if (count($result) === 0) {
             return json_encode([
@@ -83,7 +85,11 @@ class EventController extends Controller
             ]);
         }
 
-        return json_encode($result[0]);
+        return json_encode([
+            "event" => $result[0],
+            "packages" => $packResult,
+            "category" => $categoryResult[0]
+        ]);
     }
 
     public function editEvent(Request $request, $id)

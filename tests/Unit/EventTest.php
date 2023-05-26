@@ -68,7 +68,11 @@ class EventTest extends TestCase
     {
         $response = $this->get("/api/event/slug/iste-architecto-ea-maiores-distinctio-consequatur-magnam-omnis");
 
-        $response->assertJsonIsObject();
+        $response->assertJsonStructure([
+            "event",
+            "packages",
+            "category"
+        ]);
     }
 
     public function test_edit_event()

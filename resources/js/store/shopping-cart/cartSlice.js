@@ -482,9 +482,8 @@ const cartSlice = createSlice({
     initialState,
 
     reducers: {
-        addToCart: (state, action) => {
-            // console.log('===> ',action.payload)
-            let numObjects = action.payload.quantityValueTicket;
+        addToCart: (state, { payload }) => {
+            let numObjects = payload.quantityValueTicket;
 
             for (let index = 0; index < numObjects; index++) {
                 // generate rendom non-repeating characters
@@ -505,9 +504,9 @@ const cartSlice = createSlice({
                 // puch info event to cart
                 state.cart.push({
                     id_ticket_category: generateCharactersIdTichet,
-                    eventPackage: action.payload.eventPackage,
-                    eventId: action.payload.eventId,
-                    date: action.payload.date,
+                    eventPackage: payload.eventPackage,
+                    eventId: payload.eventId,
+                    date: payload.date,
                 });
             }
         },
