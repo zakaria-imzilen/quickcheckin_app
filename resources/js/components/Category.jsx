@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import Slide from "./Slide";
 import { fetchCategoryEvents } from "../store/eventSlice";
+import Navbar from "./Navbar";
 
 const Category = () => {
     const { categoryId } = useParams();
@@ -26,63 +27,40 @@ const Category = () => {
 
     return (
         <div>
-            {/* <Slide /> */}
+            <Navbar />
 
-            <div className="container">
-                <h2 className="text-center mb-5 mt-5">{currentCategoryName}</h2>
-                <div className="row">
-                    {/* map all events by category */}
-                    {currentCategoryEvents.length > 0 &&
-                        currentCategoryEvents.map((event) => {
-                            return (
-                                <div
-                                    key={event.id}
-                                    className=" col-sm-10 col-md-6 col-lg-4 mb-5"
-                                >
-                                    <div className="card">
-                                        <img
-                                            src={event.event.imageURL}
-                                            className="card-img-top"
-                                            alt="..."
-                                        />
-                                        <div className="card-body">
-                                            <h2 className="card-title">
-                                                {event.event.name}
-                                            </h2>
-                                            <p className="card-text">
-                                                Location:{" "}
-                                                {event.event.location.slice(
-                                                    0,
-                                                    10
-                                                )}
-                                            </p>
-                                            <div className="row">
-                                                À partir de :
-                                                <p className=" col card-text">
-                                                    {event.packages.length >
-                                                        0 &&
-                                                        event.packages[0]
-                                                            .price + " MAD"}
-                                                </p>
-                                                <a
-                                                    href="#"
-                                                    className=" col btn btn-primary"
-                                                >
-                                                    J'achete
-                                                </a>
-                                            </div>
-                                            <NavLink
-                                                className=" col btn btn-primary"
-                                                to={`/event/${event.event.slug}`}
-                                            >
-                                                view details
-                                            </NavLink>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                </div>
+            <div className="w-full py-10">
+                <h1 className="text-center text-7xl font-sans font-black">
+                    {currentCategoryName}
+                </h1>
+            </div>
+
+            <div className="bg-white">
+                {currentCategoryEvents.map(({ event }) => (
+                    <div
+                        key={event.id}
+                        className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8"
+                    >
+                        <div>
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                                {event.name}
+                            </h2>
+                            <p className="mt-4 text-gray-500">
+                                {event.description}
+                            </p>
+                            <button className="mt-6 bg-slate-800 hover:bg-slate-600 hover:scale-95 transition-all text-white py-2 px-6 font-body rounded-md uppercase">
+                                <Link to={`/event/${event.slug}`}>Buy</Link>
+                            </button>
+                        </div>
+                        <div className="grid grid-cols-1 grid-rows-1">
+                            <img
+                                src={event.imageURL}
+                                alt={event.name}
+                                className="rounded-lg bg-gray-100"
+                            />
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

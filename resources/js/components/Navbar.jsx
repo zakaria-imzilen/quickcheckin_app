@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { fetchCategories } from "../store/eventSlice";
 
 import Logo from "../assets/QuickCheckin_black.png";
@@ -8,17 +8,24 @@ import Logo from "../assets/QuickCheckin_black.png";
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
     const dispatch = useDispatch();
+    const categories = useSelector((state) => state.event.categories);
+
+    const { categoryId } = useParams();
+    const currentCategoryName = useMemo(() => {
+        if (categories.length > 0) {
+            return categories.filter((cat) => cat.id == categoryId)[0]?.name;
+        }
+        return "LOADING..";
+    }, [categoryId, categories]);
 
     useEffect(() => {
         dispatch(fetchCategories());
     }, []);
 
-    const categories = useSelector((state) => state.event.categories);
-
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <Link to="" className="flex items-center">
+                <Link to="/" className="flex items-center">
                     <img
                         src={Logo}
                         className="h-10 w-32  mr-3 object-cover"
@@ -53,18 +60,22 @@ const Navbar = () => {
                 >
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         {categories.map((category) => (
-                            <li
+                            <Link
+                                to={`/category/${category.id}`}
                                 key={category.id}
-                                className="p-2 px-3 rounded-md hover:bg-blue-700 hover:text-white text-slate-600 transition-colors"
+                                className={`p-2 px-3 rounded-md transition-colors ${
+                                    category.name === currentCategoryName
+                                        ? "bg-blue-500 text-white"
+                                        : "hover:bg-blue-700 hover:text-white text-slate-600"
+                                }`}
                             >
-                                <Link
-                                    to={`/category/${category.id}`}
-                                    className="block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"
+                                <li
+                                    className={`block py-2 pl-3 pr-4 rounded md:p-0`}
                                     aria-current="page"
                                 >
                                     {category.name}
-                                </Link>
-                            </li>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>

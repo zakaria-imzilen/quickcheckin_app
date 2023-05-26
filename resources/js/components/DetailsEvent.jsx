@@ -4,6 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { addToCart } from "../store/shopping-cart/cartSlice";
 import { displayEventDetails } from "../store/eventSlice";
 import { RadioGroup } from "@mui/material";
+import Navbar from "./Navbar";
 
 const DetailsEvent = () => {
     const { slug } = useParams();
@@ -62,6 +63,8 @@ const DetailsEvent = () => {
     if (event) {
         return (
             <div className="bg-white">
+                <Navbar />
+
                 <div className="pt-6">
                     <nav aria-label="Breadcrumb">
                         <ol

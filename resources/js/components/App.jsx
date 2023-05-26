@@ -11,7 +11,6 @@ import Panier from "./Panier";
 function App() {
     return (
         <>
-            <Navbar />
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/category/:categoryId" element={<Category />} />

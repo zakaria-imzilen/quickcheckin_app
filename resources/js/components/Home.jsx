@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { fetchEvents } from "../store/eventSlice";
+import Navbar from "./Navbar";
 
 const Home = () => {
     const events = useSelector((state) => state.event.data);
@@ -14,6 +15,8 @@ const Home = () => {
 
     return (
         <div>
+            <Navbar />
+
             {/* slide image */}
             <Slide />
             <div className="bg-white">
@@ -28,6 +31,7 @@ const Home = () => {
                     >
                         {events.map(({ event }) => (
                             <Link
+                                key={event.id}
                                 to={`/event/${event.slug}`}
                                 className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:gap-2 md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                             >
@@ -49,65 +53,6 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="container"> */}
-            {/* <h2 className="text-center mb-5">À ne pas manquer</h2> */}
-            {/* <div className="row">
-                    {events.map((itemevent) => {
-                        return (
-                            <div
-                                key={itemevent.id}
-                                className=" col-sm-10 col-md-6 col-lg-4 mb-5"
-                            >
-                                <div className="card">
-                                    <img
-                                        src={itemevent?.event.imageURL}
-                                        className="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div className="card-body">
-                                        <h4>
-                                            <span className="badge bg-secondary w-4 overflow-hidden">
-                                                {itemevent?.event.type}
-                                            </span>
-                                        </h4>
-                                        <h6 className="card-title">
-                                            {itemevent?.event.name}
-                                        </h6>
-                                        <p className="card-text">
-                                            {itemevent?.event.location}
-                                        </p>
-                                        <p className="card-text">
-                                            {" "}
-                                            05 j 23 h 33 m 50 s
-                                        </p>
-                                        <div className="row">
-                                            À partir de :
-                                            <p className=" col card-text">
-                                                {itemevent?.packages.length >
-                                                    0 &&
-                                                    itemevent?.packages[0]
-                                                        .price}
-                                            </p>
-                                            <a
-                                                href="#"
-                                                className=" col btn btn-primary"
-                                            >
-                                                J'achete
-                                            </a>
-                                        </div>
-                                        <NavLink
-                                            className=" col btn btn-primary"
-                                            to={`/products/${itemevent?.event.name}/DetailsEvent/${itemevent?.event.id}`}
-                                        >
-                                            view details
-                                        </NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div> */}
-            {/* </div> */}
         </div>
     );
 };
