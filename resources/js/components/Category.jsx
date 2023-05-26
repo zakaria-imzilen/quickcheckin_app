@@ -4,13 +4,21 @@ import { Link, NavLink, useParams } from "react-router-dom";
 import Slide from "./Slide";
 import { fetchCategoryEvents } from "../store/eventSlice";
 import Navbar from "./Navbar";
+import Loading from "./Loading";
 
 const Category = () => {
     const { categoryId } = useParams();
     const currentCategoryEvents = useSelector(
         (state) => state.event.currentCategoryEvents
     );
+
     const categories = useSelector((state) => state.event.categories);
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(!(currentCategoryEvents.length > 0));
+    }, [currentCategoryEvents]);
 
     const currentCategoryName = useMemo(() => {
         if (categories.length > 0) {
@@ -26,7 +34,8 @@ const Category = () => {
     }, [categoryId]);
 
     return (
-        <div>
+        <section>
+            {loading ? <Loading /> : ""}
             <Navbar />
 
             <div className="w-full py-10">
@@ -62,7 +71,7 @@ const Category = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     );
 };
 

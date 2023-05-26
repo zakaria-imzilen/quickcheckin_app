@@ -4,17 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { fetchEvents } from "../store/eventSlice";
 import Navbar from "./Navbar";
+import { useState } from "react";
+import Loading from "./Loading";
 
 const Home = () => {
     const events = useSelector((state) => state.event.data);
     const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(!(events.length > 0));
+    }, [events]);
 
     useEffect(() => {
         dispatch(fetchEvents());
     }, []);
 
     return (
-        <div>
+        <section>
+            {loading ? <Loading /> : ""}
             <Navbar />
 
             {/* slide image */}
@@ -53,7 +62,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

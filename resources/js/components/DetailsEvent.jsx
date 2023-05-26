@@ -5,6 +5,7 @@ import { addToCart } from "../store/shopping-cart/cartSlice";
 import { displayEventDetails } from "../store/eventSlice";
 import { RadioGroup } from "@mui/material";
 import Navbar from "./Navbar";
+import Loading from "./Loading";
 
 const DetailsEvent = () => {
     const { slug } = useParams();
@@ -16,6 +17,12 @@ const DetailsEvent = () => {
     const [quantityVal, setQuantityVal] = useState(1);
     const [selectedOption, setSelectedOption] = useState("");
     const [selectedTicket, setSelectedTicket] = useState(null);
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        event && setLoading(!(Object.keys(event).length > 0));
+    }, [event]);
 
     useEffect(() => {
         packages?.length > 0
@@ -62,7 +69,8 @@ const DetailsEvent = () => {
 
     if (event) {
         return (
-            <div className="bg-white">
+            <section className="bg-white">
+                {loading ? <Loading /> : ""}
                 <Navbar />
 
                 <div className="pt-6">
@@ -199,78 +207,9 @@ const DetailsEvent = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         );
     }
-
-    // return (
-    //     <div>
-    //         <h2>id : {details.id}</h2>
-    //         {/* <h2>category : {details.category}</h2> */}
-    //         <h2>date : {details.date}</h2>
-    //         <h2>location : {details.location}</h2>
-    //         <h2>name : {details.name}</h2>
-    //         {/* <h2>pric : {details.price}</h2> */}
-    //         <h2>title : {details.name}</h2>
-    //         <h2>Description : {details.description}</h2>
-    //         <img src={details.imageURL} alt="" />
-
-    //         {/* <form className="container mt-5">
-    //             <legend>{eventBycategory.date}</legend>
-    //             <div className="mb-3 col-9 ">
-    //                 <select
-    //                     className="form-select"
-    //                     value={selectedOption}
-    //                     onChange={handleOptionChange}
-    //                 >
-    //                     <option value="" key="0" disabled>
-    //                         {" "}
-    //                         chose in option{" "}
-    //                     </option>
-    //                     {eventBycategory.ticket_Category !== undefined
-    //                         ? eventBycategory.ticket_Category.map(
-    //                               (item_ticket_category) => {
-    //                                   return (
-    //                                       <option
-    //                                           value={
-    //                                               item_ticket_category.id_ticket_Category
-    //                                           }
-    //                                           key={
-    //                                               item_ticket_category.id_ticket_Category
-    //                                           }
-    //                                       >
-    //                                           category :{" "}
-    //                                           {
-    //                                               item_ticket_category.category_name
-    //                                           }{" "}
-    //                                           | price :{" "}
-    //                                           {
-    //                                               item_ticket_category.pric_category
-    //                                           }
-    //                                       </option>
-    //                                   );
-    //                               }
-    //                           )
-    //                         : ""}
-    //                 </select>
-    //             </div>
-    //             <input
-    //                 value={quantityVal}
-    //                 onChange={({ target }) => setQuantityVal(target.value)}
-    //                 type="number"
-    //                 className="form-control"
-    //             />
-
-    //             <button
-    //                 className="btn btn-primary w-100 mt-1"
-    //                 type="button"
-    //                 onClick={() => handleCommand(quantityVal, selectedOption)}
-    //             >
-    //                 Acheter maintenant
-    //             </button>
-    //         </form> */}
-    //     </div>
-    // );
 };
 
 export default DetailsEvent;
