@@ -1,16 +1,20 @@
 import React, { useEffect, useMemo, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchCategories } from "../store/eventSlice";
 
 import { Dialog, Transition } from "@headlessui/react";
 
 import Logo from "../assets/QuickCheckin_black.png";
 import { deleteEventOrder } from "../store/shopping-cart/cartSlice";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.event.categories);
+    const categoriesResponse = useSelector(
+        (state) => state.event.categoriesResponse
+    );
     const cart = useSelector((state) => state.cart.tickets);
 
     const [open, setOpen] = useState(false);
@@ -26,6 +30,12 @@ const Navbar = () => {
     useEffect(() => {
         dispatch(fetchCategories());
     }, []);
+
+    useEffect(() => {
+        if (!categoriesResponse.status) {
+            toast.error(categoriesResponse.error);
+        }
+    }, [categories]);
 
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -102,7 +112,7 @@ const Navbar = () => {
                                                 <div className="mt-8">
                                                     <div className="flow-root">
                                                         {cart.length === 0 ? (
-                                                            <h2 className="text-3xl font-body text-center font-sans">
+                                                            <h2 className="text-3xl text-center font-sans">
                                                                 Empty
                                                             </h2>
                                                         ) : (

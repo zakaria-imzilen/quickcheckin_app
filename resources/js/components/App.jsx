@@ -6,6 +6,9 @@ import Home from "./Home";
 import Category from "./Category";
 import DetailsEvent from "./DetailsEvent";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
     return (
         <>
@@ -14,6 +17,7 @@ function App() {
                 <Route path="/category/:categoryId" element={<Category />} />
                 <Route path="/event/:slug" element={<DetailsEvent />} />
             </Routes>
+            <ToastContainer />
         </>
     );
 }

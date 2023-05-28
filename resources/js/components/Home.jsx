@@ -6,15 +6,21 @@ import { fetchEvents } from "../store/eventSlice";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 const Home = () => {
     const events = useSelector((state) => state.event.data);
+    const dataResponse = useSelector((state) => state.event.dataResponse);
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(!(events.length > 0));
+        if (dataResponse.status === false) {
+            toast.error(dataResponse.error);
+            setLoading(false);
+        }
     }, [events]);
 
     useEffect(() => {
