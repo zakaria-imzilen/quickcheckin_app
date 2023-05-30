@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { addToCart } from "../store/shopping-cart/cartSlice";
 import { displayEventDetails } from "../store/eventSlice";
 import { RadioGroup } from "@mui/material";
@@ -101,23 +101,23 @@ const DetailsEvent = () => {
                                 className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
                             >
                                 <li className="text-sm">
-                                    <a
+                                    <Link
                                         href={`/category/${category.id}`}
                                         aria-current="page"
                                         className="font-medium text-black hover:text-blue-500"
                                     >
                                         {category.name}
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>/</li>
                                 <li className="text-sm">
-                                    <a
+                                    <Link
                                         href="#"
                                         aria-current="page"
                                         className="font-medium disabled cursor-default text-gray-500 hover:text-gray-600"
                                     >
                                         {event.name}
-                                    </a>
+                                    </Link>
                                 </li>
                             </ol>
                         </nav>

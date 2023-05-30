@@ -8,6 +8,7 @@ import DetailsEvent from "./DetailsEvent";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Checkout from "./Checkout";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route exact path="/" element={<Home />} />
                 <Route path="/category/:categoryId" element={<Category />} />
                 <Route path="/event/:slug" element={<DetailsEvent />} />
+                <Route path="/checkout" element={<Checkout />} />
             </Routes>
             <ToastContainer />
         </>

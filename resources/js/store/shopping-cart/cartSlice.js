@@ -30,17 +30,14 @@ const cartSlice = createSlice({
                     generateCharactersIdTichet += randomCharacter;
                 }
                 // puch info event to cart
-                tickets.push({
+                state.tickets.push({
                     id_ticket_category: generateCharactersIdTichet,
                     eventPackage: payload.eventPackage,
                     eventId: payload.eventId,
                     event: payload.event,
-                    qty: payload.quantityValueTicket,
                     date: payload.date,
                 });
             }
-
-            state.tickets.push(tickets);
         },
         deleteEventOrder: (state, { payload }) => {
             state.tickets = state.tickets.filter(

@@ -37,6 +37,19 @@ const Navbar = () => {
         }
     }, [categories]);
 
+    const eventIds = (cartEvents) => {
+        let unique_values = cartEvents
+            .map((item) => item.eventId)
+            .filter(
+                (value, index, current_value) =>
+                    current_value.indexOf(value) === index
+            );
+
+        console.log("Cart Events: ", cartEvents);
+        console.log("Unique Values: ", unique_values);
+        return unique_values;
+    };
+
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <Transition.Root show={open} as={Fragment}>
@@ -120,102 +133,128 @@ const Navbar = () => {
                                                                 role="list"
                                                                 className="-my-6 divide-y divide-gray-200"
                                                             >
-                                                                {cart.map(
-                                                                    (
-                                                                        cartEvent
-                                                                    ) => (
-                                                                        <li
-                                                                            key={
-                                                                                cartEvent[0]
-                                                                                    .id
-                                                                            }
-                                                                            className="flex py-6"
-                                                                        >
-                                                                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                                <img
-                                                                                    src={
-                                                                                        cartEvent[0]
-                                                                                            ?.event
-                                                                                            .image
-                                                                                    }
-                                                                                    alt={
-                                                                                        cartEvent[0]
-                                                                                            ?.event
-                                                                                            .name
-                                                                                    }
-                                                                                    className="h-full w-full object-cover object-center"
-                                                                                />
-                                                                            </div>
+                                                                {eventIds(
+                                                                    cart
+                                                                ).map(
+                                                                    (evId) => {
+                                                                        const eventTickets =
+                                                                            cart.filter(
+                                                                                (
+                                                                                    cartEvent
+                                                                                ) =>
+                                                                                    cartEvent.eventId ===
+                                                                                    evId
+                                                                            );
 
-                                                                            <div className="ml-4 flex flex-1 flex-col">
-                                                                                <div>
-                                                                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                                        <h3>
+                                                                        console.log(
+                                                                            eventTickets
+                                                                        );
+                                                                        console.log(
+                                                                            "Event Id",
+                                                                            evId
+                                                                        );
+
+                                                                        const firstEvent =
+                                                                            eventTickets[0];
+
+                                                                        return (
+                                                                            <li
+                                                                                key={
+                                                                                    firstEvent.id_ticket_category
+                                                                                }
+                                                                                className="flex py-6"
+                                                                            >
+                                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                                    <img
+                                                                                        src={
+                                                                                            firstEvent
+                                                                                                .event
+                                                                                                .image
+                                                                                        }
+                                                                                        alt={
+                                                                                            firstEvent
+                                                                                                .event
+                                                                                                .name
+                                                                                        }
+                                                                                        className="h-full w-full object-cover object-center"
+                                                                                    />
+                                                                                </div>
+
+                                                                                <div className="ml-4 flex flex-1 flex-col">
+                                                                                    <div>
+                                                                                        <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                                            <h3>
+                                                                                                {
+                                                                                                    firstEvent
+                                                                                                        .event
+                                                                                                        .name
+                                                                                                }
+                                                                                            </h3>
+                                                                                            <p className="ml-4 font-bold">
+                                                                                                Total:
+                                                                                                {firstEvent
+                                                                                                    .event
+                                                                                                    .unitPrice *
+                                                                                                    eventTickets.length}{" "}
+                                                                                                DH
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <p className="mt-1 text-sm text-gray-500">
                                                                                             {
-                                                                                                cartEvent[0]
-                                                                                                    ?.event
-                                                                                                    .name
+                                                                                                firstEvent
+                                                                                                    .event
+                                                                                                    .category
                                                                                             }
-                                                                                        </h3>
-                                                                                        <p className="ml-4 font-bold">
-                                                                                            Total:{" "}
-                                                                                            {cartEvent[0]
-                                                                                                ?.event
-                                                                                                .unitPrice *
-                                                                                                cartEvent[0]
-                                                                                                    ?.qty}{" "}
-                                                                                            DH
                                                                                         </p>
                                                                                     </div>
-                                                                                    <p className="mt-1 text-sm text-gray-500">
-                                                                                        {
-                                                                                            cartEvent[0]
-                                                                                                ?.event
-                                                                                                .category
-                                                                                        }
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div className="flex flex-1 items-end justify-between text-sm">
-                                                                                    <p className="text-gray-500">
-                                                                                        {
-                                                                                            cartEvent[0]
-                                                                                                ?.event
-                                                                                                .unitPrice
-                                                                                        }{" "}
-                                                                                        DH
-                                                                                        x
-                                                                                        {
-                                                                                            cartEvent[0]
-                                                                                                ?.qty
-                                                                                        }
-                                                                                    </p>
+                                                                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                                                                        <p className="text-gray-500">
+                                                                                            {
+                                                                                                firstEvent
+                                                                                                    .event
+                                                                                                    .unitPrice
+                                                                                            }{" "}
+                                                                                            DH
+                                                                                            x
+                                                                                            {
+                                                                                                eventTickets.length
+                                                                                            }
+                                                                                        </p>
 
-                                                                                    <div className="flex">
-                                                                                        <button
-                                                                                            onClick={() =>
-                                                                                                dispatch(
-                                                                                                    deleteEventOrder(
-                                                                                                        cart.indexOf(
-                                                                                                            cartEvent
+                                                                                        <div className="flex">
+                                                                                            <button
+                                                                                                onClick={() =>
+                                                                                                    dispatch(
+                                                                                                        deleteEventOrder(
+                                                                                                            cart.indexOf(
+                                                                                                                cartEvent
+                                                                                                            )
                                                                                                         )
                                                                                                     )
-                                                                                                )
-                                                                                            }
-                                                                                            type="button"
-                                                                                            className="py-2 px-3 rounded-md font-medium text-sm bg-red-500 text-white hover:text-red-500 hover:bg-white transition-all"
-                                                                                        >
-                                                                                            Remove
-                                                                                        </button>
+                                                                                                }
+                                                                                                type="button"
+                                                                                                className="py-2 px-3 rounded-md font-medium text-sm bg-red-500 text-white hover:text-red-500 hover:bg-white transition-all"
+                                                                                            >
+                                                                                                Remove
+                                                                                            </button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    )
+                                                                            </li>
+                                                                        );
+                                                                    }
                                                                 )}
                                                             </ul>
                                                         )}
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div className="my-10 text-center">
+                                                <Link to="/checkout">
+                                                    <button className="py-2 px-4 rounded-lg border-t-2 border-green-300">
+                                                        Checkout
+                                                    </button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </Dialog.Panel>
