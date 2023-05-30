@@ -8,6 +8,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Logo from "../assets/QuickCheckin_black.png";
 import { deleteEventOrder } from "../store/shopping-cart/cartSlice";
 import { toast } from "react-toastify";
+import CartContent from "./CartContent";
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -45,8 +46,6 @@ const Navbar = () => {
                     current_value.indexOf(value) === index
             );
 
-        console.log("Cart Events: ", cartEvents);
-        console.log("Unique Values: ", unique_values);
         return unique_values;
     };
 
@@ -133,117 +132,7 @@ const Navbar = () => {
                                                                 role="list"
                                                                 className="-my-6 divide-y divide-gray-200"
                                                             >
-                                                                {eventIds(
-                                                                    cart
-                                                                ).map(
-                                                                    (evId) => {
-                                                                        const eventTickets =
-                                                                            cart.filter(
-                                                                                (
-                                                                                    cartEvent
-                                                                                ) =>
-                                                                                    cartEvent.eventId ===
-                                                                                    evId
-                                                                            );
-
-                                                                        console.log(
-                                                                            eventTickets
-                                                                        );
-                                                                        console.log(
-                                                                            "Event Id",
-                                                                            evId
-                                                                        );
-
-                                                                        const firstEvent =
-                                                                            eventTickets[0];
-
-                                                                        return (
-                                                                            <li
-                                                                                key={
-                                                                                    firstEvent.id_ticket_category
-                                                                                }
-                                                                                className="flex py-6"
-                                                                            >
-                                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                                    <img
-                                                                                        src={
-                                                                                            firstEvent
-                                                                                                .event
-                                                                                                .image
-                                                                                        }
-                                                                                        alt={
-                                                                                            firstEvent
-                                                                                                .event
-                                                                                                .name
-                                                                                        }
-                                                                                        className="h-full w-full object-cover object-center"
-                                                                                    />
-                                                                                </div>
-
-                                                                                <div className="ml-4 flex flex-1 flex-col">
-                                                                                    <div>
-                                                                                        <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                                            <h3>
-                                                                                                {
-                                                                                                    firstEvent
-                                                                                                        .event
-                                                                                                        .name
-                                                                                                }
-                                                                                            </h3>
-                                                                                            <p className="ml-4 font-bold">
-                                                                                                Total:
-                                                                                                {firstEvent
-                                                                                                    .event
-                                                                                                    .unitPrice *
-                                                                                                    eventTickets.length}{" "}
-                                                                                                DH
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        <p className="mt-1 text-sm text-gray-500">
-                                                                                            {
-                                                                                                firstEvent
-                                                                                                    .event
-                                                                                                    .category
-                                                                                            }
-                                                                                        </p>
-                                                                                    </div>
-                                                                                    <div className="flex flex-1 items-end justify-between text-sm">
-                                                                                        <p className="text-gray-500">
-                                                                                            {
-                                                                                                firstEvent
-                                                                                                    .event
-                                                                                                    .unitPrice
-                                                                                            }{" "}
-                                                                                            DH
-                                                                                            x
-                                                                                            {
-                                                                                                eventTickets.length
-                                                                                            }
-                                                                                        </p>
-
-                                                                                        <div className="flex">
-                                                                                            <button
-                                                                                                onClick={() =>
-                                                                                                    dispatch(
-                                                                                                        deleteEventOrder(
-                                                                                                            cart.indexOf(
-                                                                                                                cartEvent
-                                                                                                            )
-                                                                                                        )
-                                                                                                    )
-                                                                                                }
-                                                                                                type="button"
-                                                                                                className="py-2 px-3 rounded-md font-medium text-sm bg-red-500 text-white hover:text-red-500 hover:bg-white transition-all"
-                                                                                            >
-                                                                                                Remove
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </li>
-                                                                        );
-                                                                    }
-                                                                )}
+                                                                <CartContent />
                                                             </ul>
                                                         )}
                                                     </div>
@@ -251,7 +140,7 @@ const Navbar = () => {
                                             </div>
                                             <div className="my-10 text-center">
                                                 <Link to="/checkout">
-                                                    <button className="py-2 px-4 rounded-lg border-t-2 border-green-300">
+                                                    <button className="py-2 px-4 rounded-lg border-t-2 border-green-300 hover:bg-green-400 hover:text-white hover:border-t-0 hover:border-b-2 hover:border-slate-300 transition-all">
                                                         Checkout
                                                     </button>
                                                 </Link>

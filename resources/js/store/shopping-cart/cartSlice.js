@@ -41,7 +41,7 @@ const cartSlice = createSlice({
         },
         deleteEventOrder: (state, { payload }) => {
             state.tickets = state.tickets.filter(
-                (event) => state.tickets.indexOf(event) !== payload
+                (ticket) => ticket.eventId !== payload
             );
         },
     },

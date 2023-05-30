@@ -102,7 +102,7 @@ const DetailsEvent = () => {
                             >
                                 <li className="text-sm">
                                     <Link
-                                        href={`/category/${category.id}`}
+                                        to={`/category/${category.id}`}
                                         aria-current="page"
                                         className="font-medium text-black hover:text-blue-500"
                                     >
@@ -111,13 +111,9 @@ const DetailsEvent = () => {
                                 </li>
                                 <li>/</li>
                                 <li className="text-sm">
-                                    <Link
-                                        href="#"
-                                        aria-current="page"
-                                        className="font-medium disabled cursor-default text-gray-500 hover:text-gray-600"
-                                    >
+                                    <span className="font-medium disabled cursor-default text-gray-500 hover:text-gray-600">
                                         {event.name}
-                                    </Link>
+                                    </span>
                                 </li>
                             </ol>
                         </nav>

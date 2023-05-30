@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
+import CartContent from "./CartContent";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
     const cart = useSelector((state) => state.cart.tickets);
+
+    const totalHT = useMemo(() => {
+        let sum = 0;
+
+        cart.forEach((ticket) => (sum += ticket.event.unitPrice));
+
+        return sum;
+    }, [cart]);
+
+    const totalTTC = useMemo(() => {
+        return totalHT + (totalHT * 20) / 100;
+    });
 
     return (
         <div>
@@ -15,71 +29,72 @@ const Checkout = () => {
                     </h1>
                 </div>
 
-                <div className="mx-auto my-32 max-w-screen-xl">
-                    <div className="flex w-full gap-2">
-                        <div className="cart w-3/4">
-                            <h3 className="text-xl uppercase font-thin">
-                                Events
-                            </h3>
-                            {cart.map((cartEvent) => (
-                                <li key={cartEvent[0].id} className="flex py-6">
-                                    <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                        <img
-                                            src={cartEvent[0]?.event.image}
-                                            alt={cartEvent[0]?.event.name}
-                                            className="h-full w-full object-cover object-center"
-                                        />
-                                    </div>
-
-                                    <div className="ml-4 flex flex-1 flex-col">
-                                        <div>
-                                            <div className="flex justify-between text-base font-medium text-gray-900">
-                                                <h3>
-                                                    {cartEvent[0]?.event.name}
-                                                </h3>
-                                                <p className="ml-4 font-bold">
-                                                    Total:{" "}
-                                                    {cartEvent[0]?.event
-                                                        .unitPrice *
-                                                        cartEvent[0]?.qty}{" "}
-                                                    DH
-                                                </p>
-                                            </div>
-                                            <p className="mt-1 text-sm text-gray-500">
-                                                {cartEvent[0]?.event.category}
-                                            </p>
-                                        </div>
-                                        <div className="flex flex-1 items-end justify-between text-sm">
-                                            <p className="text-gray-500">
-                                                {cartEvent[0]?.event.unitPrice}{" "}
-                                                DH x{cartEvent[0]?.qty}
-                                            </p>
-
-                                            <div className="flex">
-                                                <button
-                                                    // onClick={() =>
-                                                    //     dispatch(
-                                                    //         deleteEventOrder(
-                                                    //             cart.indexOf(
-                                                    //                 cartEvent
-                                                    //             )
-                                                    //         )
-                                                    //     )
-                                                    // }
-                                                    type="button"
-                                                    className="py-2 px-3 rounded-md font-medium text-sm bg-red-500 text-white hover:text-red-500 hover:bg-white transition-all"
-                                                >
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
+                {cart.length === 0 ? (
+                    <div className="max-w-2xl mx-auto">
+                        <div
+                            id="alert-border-1"
+                            className="w-full flex p-4 my-14 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800"
+                            role="alert"
+                        >
+                            <svg
+                                className="flex-shrink-0 w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                    clipRule="evenodd"
+                                ></path>
+                            </svg>
+                            <div className="ml-3 text-sm font-medium">
+                                Empty basket
+                            </div>
                         </div>
-                        <div className="summary flex flex-col gap-y-5"></div>
+                        <div className="text-right">
+                            <Link to={"/"}>
+                                <button className="px-5 py-2 rounded-md bg-blue-300 text-slate-600 hover:scale-95 transition-all shadow-lg uppercase">
+                                    Browse Events
+                                </button>
+                            </Link>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="mx-auto my-32 max-w-screen-xl">
+                        <div className="flex w-full gap-6">
+                            <div className="cart w-3/4">
+                                <h3 className="text-xl uppercase font-thin">
+                                    Events
+                                </h3>
+                                <CartContent />
+                            </div>
+
+                            {/* Summary Card */}
+                            <div className="w-1/4 py-8 px-6 summary flex flex-col gap-y-5 bg-slate-800 text-white rounded-sm">
+                                <h2 className="uppercase font-black text-2xl">
+                                    Summary
+                                </h2>
+                                <div className="flex justify-between">
+                                    <p>Subtotal</p>
+                                    <p>{totalHT} MAD</p>
+                                </div>
+                                <div className="my-4 flex justify-between">
+                                    <p className="font-bold uppercase">
+                                        Total (TVA: 20%)
+                                    </p>
+                                    <p className="font-bold uppercase">
+                                        {totalTTC} MAD
+                                    </p>
+                                </div>
+
+                                <button className="w-full rounded-sm py-4 uppercase font-light bg-slate-600 text-white hover:bg-blue-400 transition-all">
+                                    Proceed to Payment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </section>
         </div>
     );
