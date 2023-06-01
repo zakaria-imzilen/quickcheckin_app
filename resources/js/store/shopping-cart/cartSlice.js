@@ -30,24 +30,6 @@ const cartSlice = createSlice({
                     qty: payload.quantityValueTicket,
                 });
             } else {
-                // state.prep_tickets = [
-                //           ...state.prep_tickets.filter(
-                //               (tick) =>
-                //                   tick.eventDetails.id !== payload.event.id
-                //           ),
-                //           {
-                //               ...state.prep_tickets.filter(
-                //                   (tick) =>
-                //                       tick.eventDetails.id === payload.event.id
-                //               )[0],
-                //               qty:
-                //                   state.prep_tickets.filter(
-                //                       (tick) =>
-                //                           tick.eventDetails.id ===
-                //                           payload.event.id
-                //                   )[0].qty + payload.quantityValueTicket,
-                //           },
-                //       ]
                 state.prep_tickets = [
                     ...state.prep_tickets.filter(
                         (tick) =>

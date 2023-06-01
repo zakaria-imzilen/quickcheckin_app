@@ -5,12 +5,14 @@ import CartContent from "./CartContent";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
-    const cart = useSelector((state) => state.cart.tickets);
+    const cart = useSelector((state) => state.cart.prep_tickets);
 
     const totalHT = useMemo(() => {
         let sum = 0;
 
-        cart.forEach((ticket) => (sum += ticket.event.unitPrice));
+        cart.forEach(
+            (ticket) => (sum += ticket.eventDetails.unitPrice * ticket.qty)
+        );
 
         return sum;
     }, [cart]);
