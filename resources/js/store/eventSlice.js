@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const fetchEvents = createAsyncThunk("events/fetch", async () => {
-    const response = await fetch("/api/events");
+export const fetchEvents = createAsyncThunk("events/fetch", async (skip) => {
+    const response = await fetch("/api/events/fetch/5");
     const data = await response.json();
 
     return data;
@@ -10,7 +10,7 @@ export const fetchEvents = createAsyncThunk("events/fetch", async () => {
 export const fetchCategories = createAsyncThunk(
     "events/categories/fetch",
     async () => {
-        const response = await fetch("/api/events/categories");
+        const response = await fetch("/api/events/categories/fetch");
         const data = await response.json();
 
         return data;
@@ -20,7 +20,7 @@ export const fetchCategories = createAsyncThunk(
 export const fetchCategoryEvents = createAsyncThunk(
     "/events/category/fetch",
     async (id) => {
-        const response = await fetch(`/api/events/categories/${id}`);
+        const response = await fetch(`/api/events/categories/fetch/${id}`);
         const data = await response.json();
 
         return data;

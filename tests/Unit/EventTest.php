@@ -8,7 +8,7 @@ class EventTest extends TestCase
 {
     public function test_display()
     {
-        $response = $this->get('/events');
+        $response = $this->get('/api/events/fetch/5');
 
         $response->assertJsonCount(10);
     }

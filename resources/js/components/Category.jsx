@@ -57,9 +57,11 @@ const Category = () => {
                             <p className="mt-4 text-gray-500">
                                 {event.description}
                             </p>
-                            <button className="mt-6 bg-slate-800 hover:bg-slate-600 hover:scale-95 transition-all text-white py-2 px-6 font-body rounded-md uppercase">
-                                <Link to={`/event/${event.slug}`}>Buy</Link>
-                            </button>
+                            <Link to={`/event/${event.slug}`}>
+                                <button className="mt-6 bg-slate-800 hover:bg-slate-600 hover:scale-95 transition-all text-white py-2 px-6 font-body rounded-md uppercase">
+                                    Buy
+                                </button>
+                            </Link>
                         </div>
                         <div className="grid grid-cols-1 grid-rows-1">
                             <img

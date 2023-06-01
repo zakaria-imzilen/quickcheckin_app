@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function display($limit = 10, $skip = 0)
+    public function display($skip, $limit = 10)
     {
-        $event = new Event;
-        $events = $event->get()->skip($skip)->take($limit);
+        $events = Event::limit($limit)->offset($skip)->get()->toArray();
 
         $toBeReturned = [];
         foreach ($events as $eve) {
