@@ -113,9 +113,9 @@ class EventController extends Controller
         return json_encode($categories);
     }
 
-    public function displayCategoryEvents(Request $request, $categoryId)
+    public function displayCategoryEvents(Request $request, $categoryId, $skip)
     {
-        $events = Event::where('categoryId', $categoryId)->get();
+        $events = Event::where('categoryId', $categoryId)->skip($skip)->get();
 
         $toBeReturned = [];
         foreach ($events as $event) {

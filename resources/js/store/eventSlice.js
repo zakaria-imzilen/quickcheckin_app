@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchEvents = createAsyncThunk("events/fetch", async (skip) => {
-    const response = await fetch("/api/events/fetch/5");
+    const response = await fetch("/api/events/fetch/" + skip);
     const data = await response.json();
 
     return data;
@@ -19,8 +19,10 @@ export const fetchCategories = createAsyncThunk(
 
 export const fetchCategoryEvents = createAsyncThunk(
     "/events/category/fetch",
-    async (id) => {
-        const response = await fetch(`/api/events/categories/fetch/${id}`);
+    async (id, skip) => {
+        const response = await fetch(
+            `/api/events/categories/fetch/${id}/${skip}`
+        );
         const data = await response.json();
 
         return data;
@@ -66,12 +68,11 @@ const eventSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchEvents.fulfilled, (state, { payload }) => {
-            state.data = payload;
+            state.data = [...state.data, ...payload];
             state.dataResponse.status = true;
             state.dataResponse.error = null;
         });
         builder.addCase(fetchEvents.pending, (state) => {
-            state.data = [];
             state.dataResponse.status = "pending";
             state.dataResponse.error = null;
         });
@@ -87,7 +88,6 @@ const eventSlice = createSlice({
             state.categoriesResponse.error = null;
         });
         builder.addCase(fetchCategories.pending, (state) => {
-            state.categories = [];
             state.categoriesResponse.status = "pending";
             state.categoriesResponse.error = null;
         });
@@ -98,12 +98,14 @@ const eventSlice = createSlice({
         });
         // ---
         builder.addCase(fetchCategoryEvents.fulfilled, (state, { payload }) => {
-            state.currentCategoryEvents = payload;
+            state.currentCategoryEvents = [
+                ...state.currentCategoryEvents,
+                ...payload,
+            ];
             state.currentCategoryEventsResponse.status = true;
             state.currentCategoryEventsResponse.error = null;
         });
         builder.addCase(fetchCategoryEvents.pending, (state) => {
-            state.currentCategoryEvents = [];
             state.currentCategoryEventsResponse.status = "pending";
             state.currentCategoryEventsResponse.error = null;
         });
@@ -119,7 +121,6 @@ const eventSlice = createSlice({
             state.currentEventResponse.error = null;
         });
         builder.addCase(displayEventDetails.pending, (state) => {
-            state.currentEvent = {};
             state.currentEventResponse.status = "pending";
             state.currentEventResponse.error = null;
         });

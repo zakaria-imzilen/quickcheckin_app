@@ -1,12 +1,6 @@
 import Slide from "./Slide";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
-import { fetchEvents } from "../store/eventSlice";
+import React from "react";
 import Navbar from "./Navbar";
-import { useState } from "react";
-import Loading from "./Loading";
-import { toast } from "react-toastify";
 import EventsList from "./EventsList";
 
 const Home = () => {
@@ -26,7 +20,7 @@ const Home = () => {
                         id="events_section"
                         className="mt-6 flex flex-wrap gap-2"
                     >
-                        <EventsList />
+                        <EventsList page="home" />
                     </div>
                 </div>
             </div>

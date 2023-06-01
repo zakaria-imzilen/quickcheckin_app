@@ -5,6 +5,7 @@ import Slide from "./Slide";
 import { fetchCategoryEvents } from "../store/eventSlice";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
+import EventsList from "./EventsList";
 
 const Category = () => {
     const { categoryId } = useParams();
@@ -30,7 +31,7 @@ const Category = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCategoryEvents(categoryId));
+        dispatch(fetchCategoryEvents(categoryId, 0));
     }, [categoryId]);
 
     return (
@@ -44,35 +45,7 @@ const Category = () => {
                 </h1>
             </div>
 
-            <div className="bg-white">
-                {currentCategoryEvents.map(({ event }) => (
-                    <div
-                        key={event.id}
-                        className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8"
-                    >
-                        <div>
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                                {event.name}
-                            </h2>
-                            <p className="mt-4 text-gray-500">
-                                {event.description}
-                            </p>
-                            <Link to={`/event/${event.slug}`}>
-                                <button className="mt-6 bg-slate-800 hover:bg-slate-600 hover:scale-95 transition-all text-white py-2 px-6 font-body rounded-md uppercase">
-                                    Buy
-                                </button>
-                            </Link>
-                        </div>
-                        <div className="grid grid-cols-1 grid-rows-1">
-                            <img
-                                src={event.imageURL}
-                                alt={event.name}
-                                className="rounded-lg bg-gray-100"
-                            />
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <EventsList page="category" />
         </section>
     );
 };
