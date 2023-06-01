@@ -16,7 +16,7 @@ const Navbar = () => {
     const categoriesResponse = useSelector(
         (state) => state.event.categoriesResponse
     );
-    const cart = useSelector((state) => state.cart.tickets);
+    const cart = useSelector((state) => state.cart.prep_tickets);
 
     const [open, setOpen] = useState(false);
 

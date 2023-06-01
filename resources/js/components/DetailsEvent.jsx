@@ -71,6 +71,7 @@ const DetailsEvent = () => {
                     eventId: event.id,
                     quantityValueTicket: Number(quantityVal),
                     event: {
+                        id: event.id,
                         name: event.name,
                         category: category.name,
                         unitPrice: packages.filter(
@@ -78,6 +79,9 @@ const DetailsEvent = () => {
                         )[0].price,
                         image: event.imageURL,
                     },
+                    package: packages.filter(
+                        (pack) => pack.id === selectedTicket
+                    )[0],
                     date: `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`,
                 })
             );
