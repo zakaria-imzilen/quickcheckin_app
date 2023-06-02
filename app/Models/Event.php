@@ -23,6 +23,11 @@ class Event extends Model
 
     use HasFactory;
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categoryId');
+    }
+
     public function event_packages()
     {
         return $this->hasMany(EventPackage::class, 'eventId');

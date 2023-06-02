@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoryEvents, fetchEvents } from "../store/eventSlice";
+import {
+    fetchCategoryEvents,
+    fetchEvents,
+    resetCtgEvts,
+} from "../store/eventSlice";
 import Loading from "./Loading";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EventsList = ({ page }) => {
+    const { categoryId } = useParams();
+
     const events = useSelector((state) => state.event.data);
     const categoryEvents = useSelector(
         (state) => state.event.currentCategoryEvents
@@ -14,21 +20,48 @@ const EventsList = ({ page }) => {
     const response = useSelector((state) => state.event.dataResponse);
     const dispatch = useDispatch();
 
-    const dataResponse = useSelector((state) => state.event.dataResponse);
+    const currentCategoryEventsResponse = useSelector(
+        (state) => state.event.currentCategoryEventsResponse
+    );
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(!(events.length > 0));
-        if (dataResponse.status === false) {
-            toast.error(dataResponse.error);
-            setLoading(false);
+        if (page === "home") {
+            setLoading(!(events.length > 0));
+            if (response.status === false) {
+                toast.error(response.error);
+                setLoading(false);
+            }
+        } else {
+            if (currentCategoryEventsResponse.status === true) {
+                setLoading(false);
+            }
         }
-    }, [events]);
+    }, [events, currentCategoryEventsResponse, page, response]);
 
     useEffect(() => {
-        dispatch(fetchEvents(0));
-    }, []);
+        if (page === "home") {
+            dispatch(fetchEvents(0));
+        } else {
+            dispatch(
+                fetchCategoryEvents({
+                    id: categoryId,
+                    skip: categoryEvents.length,
+                })
+            );
+        }
+    }, [page]);
+
+    useEffect(() => {
+        dispatch(resetCtgEvts());
+        dispatch(
+            fetchCategoryEvents({
+                id: categoryId,
+                skip: 0,
+            })
+        );
+    }, [categoryId]);
 
     return (
         <>
@@ -56,7 +89,7 @@ const EventsList = ({ page }) => {
                               </div>
                           </Link>
                       ))
-                    : categoryEvents.map(({ event }) => (
+                    : categoryEvents?.map((event) => (
                           <Link
                               key={event.id}
                               to={`/event/${event.slug}`}
@@ -99,18 +132,15 @@ const EventsList = ({ page }) => {
                         />
                     </svg>
                 )}
-                <button
-                    onClick={() =>
-                        dispatch(
-                            page === "home"
-                                ? fetchEvents(events.length)
-                                : fetchCategoryEvents(categoryEvents.length)
-                        )
-                    }
-                    className="px-4 py-2 rounded-lg bg-blue-400 text-white"
-                >
-                    LOAD MORE
-                </button>
+
+                {page === "home" && (
+                    <button
+                        onClick={() => dispatch(fetchEvents(events.length))}
+                        className="px-4 py-2 rounded-lg bg-blue-400 text-white"
+                    >
+                        LOAD MORE
+                    </button>
+                )}
             </div>
         </>
     );

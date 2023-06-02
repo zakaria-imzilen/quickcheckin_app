@@ -19,9 +19,9 @@ export const fetchCategories = createAsyncThunk(
 
 export const fetchCategoryEvents = createAsyncThunk(
     "/events/category/fetch",
-    async (id, skip) => {
+    async ({ id, skip }) => {
         const response = await fetch(
-            `/api/events/categories/fetch/${id}/${skip}`
+            `/api/events/categories/fetch/category/${id}/${skip}`
         );
         const data = await response.json();
 
@@ -66,6 +66,11 @@ const eventSlice = createSlice({
             error: null,
         },
     },
+    reducers: {
+        resetCtgEvts: (state) => {
+            state.currentCategoryEvents = [];
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchEvents.fulfilled, (state, { payload }) => {
             state.data = [...state.data, ...payload];
@@ -98,10 +103,7 @@ const eventSlice = createSlice({
         });
         // ---
         builder.addCase(fetchCategoryEvents.fulfilled, (state, { payload }) => {
-            state.currentCategoryEvents = [
-                ...state.currentCategoryEvents,
-                ...payload,
-            ];
+            state.currentCategoryEvents = payload;
             state.currentCategoryEventsResponse.status = true;
             state.currentCategoryEventsResponse.error = null;
         });
@@ -133,3 +135,4 @@ const eventSlice = createSlice({
 });
 
 export default eventSlice.reducer;
+export const { resetCtgEvts } = eventSlice.actions;

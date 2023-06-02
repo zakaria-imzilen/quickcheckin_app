@@ -1,25 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useParams } from "react-router-dom";
-import Slide from "./Slide";
-import { fetchCategoryEvents } from "../store/eventSlice";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
-import Loading from "./Loading";
 import EventsList from "./EventsList";
 
 const Category = () => {
     const { categoryId } = useParams();
-    const currentCategoryEvents = useSelector(
-        (state) => state.event.currentCategoryEvents
-    );
-
     const categories = useSelector((state) => state.event.categories);
-
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(!(currentCategoryEvents.length > 0));
-    }, [currentCategoryEvents]);
 
     const currentCategoryName = useMemo(() => {
         if (categories.length > 0) {
@@ -28,15 +15,8 @@ const Category = () => {
         return "No";
     }, [categoryId, categories]);
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchCategoryEvents(categoryId, 0));
-    }, [categoryId]);
-
     return (
         <section>
-            {loading ? <Loading /> : ""}
             <Navbar />
 
             <div className="w-full py-10">
