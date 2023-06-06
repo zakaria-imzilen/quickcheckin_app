@@ -23,6 +23,14 @@ const paymentSlice = createSlice({
         status: null,
         message: null,
     },
+    reducers: {
+        reset: (state) => {
+            state = {
+                status: null,
+                message: null,
+            };
+        },
+    },
     extraReducers: (build) => {
         build.addCase(passPayment.fulfilled, (state, action) => {
             state.status = action.payload.created;
@@ -35,3 +43,4 @@ const paymentSlice = createSlice({
 });
 
 export default paymentSlice.reducer;
+export const { reset } = paymentSlice.actions;

@@ -88,8 +88,12 @@ const cartSlice = createSlice({
                 (ticket) => ticket.eventId !== payload
             );
         },
+        resetCart: (state) => {
+            state.prep_tickets = [];
+        },
     },
 });
 
-export const { checkout, deleteEventOrder, addToCart } = cartSlice.actions;
+export const { checkout, deleteEventOrder, addToCart, resetCart } =
+    cartSlice.actions;
 export default cartSlice.reducer;

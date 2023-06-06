@@ -3,7 +3,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { isNumericString } from "../../utils/payment";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { passPayment } from "../../store/paymentSlice";
+import { passPayment, reset } from "../../store/paymentSlice";
+import { resetCart } from "../../store/shopping-cart/cartSlice";
 
 const PaymentModal = ({ setOpen, open }) => {
     const dispatch = useDispatch();
@@ -90,17 +91,27 @@ const PaymentModal = ({ setOpen, open }) => {
             securityNumber: form.securityNum,
             userId: 1, // @note TO CHANGE
         };
-        // --> Response: Toast
         let token = document.head.querySelector('meta[name="csrf-token"]');
         dispatch(passPayment({ tickets, payment, token }));
-        // --> --> True: Clear the basket
     };
 
     // Payment Response
     useEffect(() => {
-        response.status === true && toast.success("Event reserved successfuly");
-        response.status === false &&
+        if (response.status === true) {
+            toast.success("Event reserved successfuly");
+            dispatch(resetCart());
+            setOpen(false);
+            setForm({
+                cardNumber: "",
+                name: "",
+                expiry: { month: "", year: "" },
+                securityNum: "",
+            });
+            dispatch(reset());
+        } else if (response.status === false) {
             toast.error("An error occured, please try again !");
+            dispatch(reset());
+        }
     }, [response]);
 
     return (
