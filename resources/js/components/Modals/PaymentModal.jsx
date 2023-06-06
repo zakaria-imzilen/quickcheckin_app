@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { isNumericString } from "../../utils/payment";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ const PaymentModal = ({ setOpen, open }) => {
     const dispatch = useDispatch();
 
     const prep_tickets = useSelector((state) => state.cart.prep_tickets);
+    const response = useSelector((state) => state.payment);
 
     const [form, setForm] = useState({
         cardNumber: "",
@@ -94,6 +95,13 @@ const PaymentModal = ({ setOpen, open }) => {
         dispatch(passPayment({ tickets, payment, token }));
         // --> --> True: Clear the basket
     };
+
+    // Payment Response
+    useEffect(() => {
+        response.status === true && toast.success("Event reserved successfuly");
+        response.status === false &&
+            toast.error("An error occured, please try again !");
+    }, [response]);
 
     return (
         <Transition.Root show={open} as={Fragment}>

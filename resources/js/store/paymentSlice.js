@@ -13,7 +13,7 @@ export const passPayment = createAsyncThunk(
             body: JSON.stringify({ tickets, payment }),
         });
 
-        return result;
+        return result.json();
     }
 );
 
@@ -24,11 +24,11 @@ const paymentSlice = createSlice({
         message: null,
     },
     extraReducers: (build) => {
-        build.addCase(passPayment.fulfilled, (state, { payload }) => {
-            state.status = true;
+        build.addCase(passPayment.fulfilled, (state, action) => {
+            state.status = action.payload.created;
             state.message = null;
         });
-        build.addCase(passPayment.rejected, (state, { payload }) => {
+        build.addCase(passPayment.rejected, (state, action) => {
             state.status = true;
         });
     },
