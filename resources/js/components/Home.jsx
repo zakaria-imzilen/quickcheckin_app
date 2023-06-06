@@ -7,7 +7,6 @@ const Home = () => {
     return (
         <section>
             <Navbar />
-
             {/* slide image */}
             <Slide />
             <div className="bg-white">

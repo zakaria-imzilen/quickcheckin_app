@@ -49,7 +49,14 @@ class TicketController extends Controller
     public function buyTicket($ticket, $payment)
     {
         $resultTicket = Ticket::create($ticket);
-        $resultPayment = Payment::create($payment);
+        $resultPayment = Payment::create([
+            "creditCardNum" => $payment['creditCardNum'],
+            "expiringDate" => $payment['expiringDate'],
+            "holderFullName" => $payment['holderFullName'],
+            "securityNumber" => $payment['securityNumber'],
+            "ticketId" => $resultTicket['id'],
+            "userId" => $payment['userId']
+        ]);
 
         $toReturn = [
             "ticket" => [
@@ -84,7 +91,7 @@ class TicketController extends Controller
         foreach ($tickets as $ticket) {
             $resp = $this->buyTicket($ticket, $payment);
 
-            if (!$resp["ticket"]["created"] or !$resp["payment"]["created"]) {
+            if (!$resp["ticket"]["created"] || !$resp["payment"]["created"]) {
                 $allGood = false;
                 break;
             }

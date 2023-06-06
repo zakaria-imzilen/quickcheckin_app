@@ -18,7 +18,7 @@ class PaymentFactory extends Factory
     {
         return [
             "creditCardNum" => fake()->creditCardNumber(),
-            "expiringDate" => fake()->date(),
+            "expiringDate" => fake()->numberBetween(1, 12) . '/' . fake()->numberBetween(23, 35),
             "holderFullName" => fake()->name(),
             "securityNumber" => fake()->numberBetween(100, 999),
             "ticketId" => fake()->numberBetween(1, 80),

@@ -1,11 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import CartContent from "./CartContent";
 import { Link } from "react-router-dom";
+import PaymentModal from "./Modals/PaymentModal";
 
 const Checkout = () => {
     const cart = useSelector((state) => state.cart.prep_tickets);
+
+    // Payment Modal
+    const [open, setOpen] = useState(false);
 
     const totalHT = useMemo(() => {
         let sum = 0;
@@ -24,6 +28,7 @@ const Checkout = () => {
     return (
         <div>
             <Navbar />
+            <PaymentModal open={open} setOpen={setOpen} />
             <section className="bg-white dark:bg-gray-900">
                 <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12">
                     <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white uppercase">
@@ -90,7 +95,10 @@ const Checkout = () => {
                                     </p>
                                 </div>
 
-                                <button className="w-full rounded-sm py-4 uppercase font-light bg-slate-600 text-white hover:bg-blue-400 transition-all">
+                                <button
+                                    className="w-full rounded-sm py-4 uppercase font-light bg-slate-600 text-white hover:bg-blue-400 transition-all"
+                                    onClick={() => setOpen(true)}
+                                >
                                     Proceed to Payment
                                 </button>
                             </div>

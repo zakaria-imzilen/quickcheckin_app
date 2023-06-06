@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string("creditCardNum", 16);
-            $table->date("expiringDate");
+            $table->string("expiringDate", 5);
             $table->string("holderFullName");
             $table->integer("securityNumber");
             $table->unsignedBigInteger("ticketId");
