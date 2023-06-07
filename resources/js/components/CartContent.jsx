@@ -6,17 +6,6 @@ const CartContent = () => {
     const cart = useSelector((state) => state.cart.prep_tickets);
     const dispatch = useDispatch();
 
-    const eventIds = () => {
-        let unique_values = cart
-            .map((item) => item.eventId)
-            .filter(
-                (value, index, current_value) =>
-                    current_value.indexOf(value) === index
-            );
-
-        return unique_values;
-    };
-
     return (
         <div>
             {cart.map((event) => {
@@ -58,7 +47,7 @@ const CartContent = () => {
                                 <div className="flex">
                                     <button
                                         onClick={() =>
-                                            dispatch(deleteEventOrder(evId))
+                                            dispatch(deleteEventOrder(event.id))
                                         }
                                         type="button"
                                         className="py-2 px-3 rounded-md font-medium text-sm bg-red-500 text-white hover:text-red-500 hover:bg-white transition-all"
