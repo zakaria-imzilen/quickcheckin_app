@@ -1,7 +1,7 @@
-import Slide from "./Slide";
+import Slide from "../components/Slide";
 import React from "react";
-import Navbar from "./Navbar";
-import EventsList from "./EventsList";
+import Navbar from "../components/Navbar";
+import EventsList from "../components/EventsList";
 
 const Home = () => {
     return (

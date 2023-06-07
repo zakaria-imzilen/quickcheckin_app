@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import CartContent from "./CartContent";
+import CartContent from "../components/CartContent";
 import { Link } from "react-router-dom";
-import PaymentModal from "./Modals/PaymentModal";
+import PaymentModal from "../components/Modals/PaymentModal";
 
 const Checkout = () => {
     const cart = useSelector((state) => state.cart.prep_tickets);

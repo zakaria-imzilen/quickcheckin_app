@@ -4,8 +4,8 @@ import { Link, NavLink, useParams } from "react-router-dom";
 import { addToCart } from "../store/shopping-cart/cartSlice";
 import { displayEventDetails } from "../store/eventSlice";
 import { RadioGroup } from "@mui/material";
-import Navbar from "./Navbar";
-import Loading from "./Loading";
+import Navbar from "../components/Navbar";
+import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 
 const DetailsEvent = () => {

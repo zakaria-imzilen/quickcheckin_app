@@ -2,13 +2,13 @@ import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./Home";
-import Category from "./Category";
-import DetailsEvent from "./DetailsEvent";
-
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Checkout from "./Checkout";
+
+import Home from "../pages/Home";
+import Category from "../pages/Category";
+import DetailsEvent from "../pages/DetailsEvent";
+import Checkout from "../pages/Checkout";
 
 function App() {
     return (

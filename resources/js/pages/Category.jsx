@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar";
-import EventsList from "./EventsList";
+import Navbar from "../components/Navbar";
+import EventsList from "../components/EventsList";
 
 const Category = () => {
     const { categoryId } = useParams();
