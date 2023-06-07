@@ -6,7 +6,6 @@ import { fetchCategories } from "../store/eventSlice";
 import { Dialog, Transition } from "@headlessui/react";
 
 import Logo from "../assets/QuickCheckin_black.png";
-import { deleteEventOrder } from "../store/shopping-cart/cartSlice";
 import { toast } from "react-toastify";
 import CartContent from "./CartContent";
 
@@ -38,19 +37,8 @@ const Navbar = () => {
         }
     }, [categories]);
 
-    const eventIds = (cartEvents) => {
-        let unique_values = cartEvents
-            .map((item) => item.eventId)
-            .filter(
-                (value, index, current_value) =>
-                    current_value.indexOf(value) === index
-            );
-
-        return unique_values;
-    };
-
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <nav className="absolute w-screen bg-transparent border-gray-200 dark:bg-gray-900">
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={setOpen}>
                     <Transition.Child
@@ -188,7 +176,7 @@ const Navbar = () => {
                     className="hidden w-full md:flex md:gap-8 md:w-auto"
                     id="navbar-default"
                 >
-                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         {categories.map((category) => (
                             <Link
                                 to={`/category/${category.id}`}
@@ -209,7 +197,6 @@ const Navbar = () => {
                         ))}
                     </ul>
                     <button
-                        to="/Panier"
                         className="border-2 flex gap-3 border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white transition-all rounded-md font-sans uppercase px-6 py-2"
                         onClick={() => setOpen(true)}
                     >
@@ -227,6 +214,29 @@ const Navbar = () => {
                         </svg>
                         <span>Cart</span>
                     </button>
+
+                    {/* Auth */}
+                    <div className="flex gap-3 items-center">
+                        <Link
+                            to="/signup"
+                            className="p-2 bg-sky-300 hover:bg-sky-600 text-white transition-colors rounded-full"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-5 h-5"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                                />
+                            </svg>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>

@@ -19,7 +19,7 @@ const Category = () => {
         <section>
             <Navbar />
 
-            <div className="w-full py-10">
+            <div className="w-full py-28">
                 <h1 className="text-center text-7xl font-sans font-black">
                     {currentCategoryName}
                 </h1>

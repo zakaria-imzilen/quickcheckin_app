@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('pwd');
             $table->string('sexe');
             $table->date("birthDate");
-            $table->string('imageURL');
+            $table->string('imageURL')->nullable();
             $table->timestamps();
         });
     }

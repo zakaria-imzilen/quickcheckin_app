@@ -12,9 +12,10 @@ class UserController extends Controller
         $result = User::create($request->all());
 
         if (gettype($result->id) == "integer") {
+            $userInfo = User::find($result->id);
             return json_encode([
                 "created" => true,
-                "id" => $result->id
+                "info" => $userInfo
             ]);
         }
         return json_encode([

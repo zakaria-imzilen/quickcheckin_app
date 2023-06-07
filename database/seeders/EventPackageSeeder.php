@@ -14,7 +14,7 @@ class EventPackageSeeder extends Seeder
     public function run(): void
     {
         EventPackage::factory()
-            ->count(20)
+            ->count(6)
             ->create();
     }
 }
