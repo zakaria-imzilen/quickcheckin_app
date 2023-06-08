@@ -30,13 +30,15 @@ class UserController extends Controller
         if (count($result) > 0) {
             return json_encode([
                 "found" => true,
-                'firstName' => $result[0]['firstName'],
-                'lastName' => $result[0]['lastName'],
-                'email' => $result[0]['email'],
-                'pwd' => $result[0]['pwd'],
-                'sexe' => $result[0]['sexe'],
-                "birthDate" => $result[0]['birthDate'],
-                'imageURL' => $result[0]['imageURL'],
+                "info" => [
+                    'firstName' => $result[0]['firstName'],
+                    'lastName' => $result[0]['lastName'],
+                    'email' => $result[0]['email'],
+                    'pwd' => $result[0]['pwd'],
+                    'sexe' => $result[0]['sexe'],
+                    "birthDate" => $result[0]['birthDate'],
+                    'imageURL' => $result[0]['imageURL'],
+                ]
             ]);
         }
         return json_encode([

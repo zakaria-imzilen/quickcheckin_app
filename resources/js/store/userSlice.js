@@ -17,11 +17,25 @@ export const signMeUp = createAsyncThunk(
     }
 );
 
+export const logMeIn = createAsyncThunk("us/login", async ({ data, token }) => {
+    const result = await fetch("/us/login", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "X-CSRF-TOKEN": token.content,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    return result.json();
+});
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
         loggedIn: {
-            status: false,
+            status: null,
             info: null,
         },
         signUp: {
@@ -47,11 +61,16 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        // SIGN UP
         builder.addCase(signMeUp.fulfilled, (state, { payload }) => {
             state.signUp.status = true;
             state.signUp.error = null;
             state.loggedIn.status = true;
             state.loggedIn.info = payload.info;
+        });
+        builder.addCase(signMeUp.pending, (state) => {
+            state.signUp.status = "pending";
+            state.signUp.error = null;
         });
         builder.addCase(signMeUp.rejected, (state, { error }) => {
             state.signUp.status = false;
@@ -59,6 +78,25 @@ const userSlice = createSlice({
             state.loggedIn.status = false;
             state.loggedIn.info = null;
         });
+        // <-- SIGN UP
+
+        // LOGIN
+        builder.addCase(logMeIn.fulfilled, (state, { payload }) => {
+            state.loggedIn.status = payload.found;
+            if (payload.found === true) {
+                state.loggedIn.info = payload.info;
+            } else {
+                state.loggedIn.info = null;
+            }
+        });
+        builder.addCase(logMeIn.pending, (state) => {
+            state.loggedIn.status = "pending";
+        });
+        builder.addCase(logMeIn.rejected, (state) => {
+            state.loggedIn.status = false;
+            state.loggedIn.info = null;
+        });
+        // <-- LOGIN
     },
 });
 

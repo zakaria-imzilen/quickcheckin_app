@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { signMeUp } from "../../store/userSlice";
 import { useEffect } from "react";
+import Loading from "../Loading";
 
 const SignUp = () => {
     const [form, setForm] = useState({
@@ -93,13 +94,14 @@ const SignUp = () => {
     useEffect(() => {
         if (signUpResponse.status === true) {
             toast.success("Sign up successfuly");
-        } else if (signUpResponse.status === true) {
+        } else if (signUpResponse.status === false) {
             toast.error("Can't sign you up for some reason");
         }
     }, [signUpResponse]);
 
     return (
         <main id="signup">
+            {signUpResponse.status === "pending" ? <Loading /> : ""}
             <Navbar />
             <div className="flex bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-blue-100 via-blue-300 to-blue-500 h-screen flex-1 flex-col justify-center items-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">

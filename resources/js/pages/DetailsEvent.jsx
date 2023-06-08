@@ -98,7 +98,7 @@ const DetailsEvent = () => {
                 {loading ? <Loading /> : ""}
                 <Navbar />
                 {status === true && (
-                    <div className="pt-6">
+                    <div className="mt-16 pt-6">
                         <nav aria-label="Breadcrumb">
                             <ol
                                 role="list"
