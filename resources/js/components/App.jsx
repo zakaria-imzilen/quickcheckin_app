@@ -11,6 +11,7 @@ import DetailsEvent from "../pages/DetailsEvent";
 import Checkout from "../pages/Checkout";
 import SignUp from "./auth/SignUp";
 import LogIn from "./auth/LogIn";
+import ProfilePage from "../pages/ProfilePage";
 
 function App() {
     return (
@@ -23,6 +24,8 @@ function App() {
                 {/* Auth */}
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<LogIn />} />
+                {/* <-- Auth */}
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
             <ToastContainer />
         </>

@@ -205,7 +205,7 @@ const PaymentModal = ({ setOpen, open }) => {
                                                     }}
                                                 />
                                                 <div className="flex gap-3">
-                                                    <div class="exp-wrapper flex w-1/2">
+                                                    <div className="exp-wrapper flex w-1/2">
                                                         <input
                                                             className="w-1/2 border-gray-400 rounded-lg text-xs border-2"
                                                             id="month"

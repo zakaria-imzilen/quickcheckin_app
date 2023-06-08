@@ -31,6 +31,15 @@ export const logMeIn = createAsyncThunk("us/login", async ({ data, token }) => {
     return result.json();
 });
 
+export const fetchMyTickets = createAsyncThunk(
+    "us/fetch/tickets",
+    async (id) => {
+        const result = await fetch("/api/tickets/user/" + id);
+
+        return result.json();
+    }
+);
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -42,7 +51,7 @@ const userSlice = createSlice({
             status: null,
             error: null,
         },
-        myOrders: {
+        myTickets: {
             data: null,
             status: null,
         },
@@ -54,7 +63,7 @@ const userSlice = createSlice({
                 info: null,
             };
 
-            state.myOrders = {
+            state.myTickets = {
                 data: null,
                 status: null,
             };
@@ -97,6 +106,20 @@ const userSlice = createSlice({
             state.loggedIn.info = null;
         });
         // <-- LOGIN
+
+        // Tickets
+        builder.addCase(fetchMyTickets.fulfilled, (state, { payload }) => {
+            state.myTickets.data = payload;
+            state.myTickets.status = true;
+        });
+        builder.addCase(fetchMyTickets.rejected, (state) => {
+            state.myTickets.data = [];
+            state.myTickets.status = false;
+        });
+        builder.addCase(fetchMyTickets.pending, (state) => {
+            state.myTickets.data = [];
+            state.myTickets.status = "pending";
+        });
     },
 });
 

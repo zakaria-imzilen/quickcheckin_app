@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import LogoBlack from "../../assets/QuickCheckin-logos.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { logMeIn } from "../../store/userSlice";
@@ -11,6 +11,7 @@ const LogIn = () => {
     const [form, setForm] = useState({ email: "", pwd: "" });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const loggedInResponse = useSelector((state) => state.user.loggedIn);
 
@@ -34,7 +35,13 @@ const LogIn = () => {
 
     useEffect(() => {
         if (loggedInResponse.status === true) {
-            toast.success("Logged in successfuly");
+            toast.success(
+                "Logged in successfuly, you will be redirected to your profile in a few seconds"
+            );
+
+            setTimeout(() => {
+                navigate("/profile");
+            }, 1500);
         } else if (loggedInResponse.status === false) {
             toast.error("Incorrect credentials");
         }
