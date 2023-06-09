@@ -21,7 +21,7 @@ class TicketFactory extends Factory
             "packId" => fake()->numberBetween(1, 15),
             "eventId" => fake()->numberBetween(1, 10),
             "userId" => fake()->numberBetween(1, 60),
-            "status" => fake()->realText(10),
+            "status" => fake()->randomElement(['active', 'inactive']),
         ];
     }
 }

@@ -31,6 +31,7 @@ class UserController extends Controller
             return json_encode([
                 "found" => true,
                 "info" => [
+                    'id' => $result[0]['id'],
                     'firstName' => $result[0]['firstName'],
                     'lastName' => $result[0]['lastName'],
                     'email' => $result[0]['email'],

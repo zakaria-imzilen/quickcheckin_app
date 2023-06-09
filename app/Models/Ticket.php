@@ -16,4 +16,14 @@ class Ticket extends Model
         "userId",
         "status",
     ];
+
+    public function Event()
+    {
+        return $this->hasOne(Event::class, 'id');
+    }
+
+    public function EventPackage()
+    {
+        return $this->hasOne(EventPackage::class, 'id');
+    }
 }

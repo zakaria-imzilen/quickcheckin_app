@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SuperAdminSeeder::class,
             UserSeeder::class,
-            TicketSeeder::class,
             PaymentSeeder::class,
             RefundSeeder::class,
         ]);

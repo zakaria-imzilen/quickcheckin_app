@@ -21,7 +21,7 @@ class EventFactory extends Factory
             "price" => fake()->numberBetween(200, 1000),
             "description" => fake()->text(),
             "date" => fake()->dateTimeThisYear(),
-            "location" => fake()->realText(),
+            "location" => fake()->city(),
             "imageURL" => fake()->imageUrl(),
             "status" => fake()->text(),
             "slug" => fake()->unique()->slug(),

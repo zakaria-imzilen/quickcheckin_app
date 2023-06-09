@@ -38,32 +38,37 @@ const TableOrders = () => {
                                     scope="row"
                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                 >
-                                    Lmo9awala bla filter
+                                    {ticket.event.name}
                                 </th>
-                                <td className="px-6 py-4">VIP</td>
-                                <td className="px-6 py-4">Event</td>
-                                <td className="px-6 py-4">500 DH</td>
-                                <td className="px-6 py-4">Active</td>
-                                <td className="px-6 py-4">2023-06-23</td>
-                                <td className="px-6 py-4">Casablanca</td>
-                                <td className="px-6 py-4">2023-06-08</td>
+                                <td className="px-6 py-4">
+                                    {ticket.pack.name}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket.category.name}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket.pack.price} DH
+                                </td>
+                                <td
+                                    className={`px-6 py-4 ${
+                                        ticket.ticket.status === "inactive"
+                                            ? "text-red-500"
+                                            : "text-sky-500"
+                                    }`}
+                                >
+                                    {ticket.ticket.status}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket.event.date}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket.event.location}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {ticket.ticket.date}
+                                </td>
                             </tr>
                         ))}
-                    {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            Lmo9awala bla filter
-                        </th>
-                        <td className="px-6 py-4">VIP</td>
-                        <td className="px-6 py-4">Event</td>
-                        <td className="px-6 py-4">500 DH</td>
-                        <td className="px-6 py-4">Active</td>
-                        <td className="px-6 py-4">2023-06-23</td>
-                        <td className="px-6 py-4">Casablanca</td>
-                        <td className="px-6 py-4">2023-06-08</td>
-                    </tr> */}
                 </tbody>
             </table>
         </div>

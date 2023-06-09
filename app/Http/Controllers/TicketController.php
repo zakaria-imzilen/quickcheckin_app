@@ -11,9 +11,30 @@ class TicketController extends Controller
 {
     public function displayTickets($id)
     {
-        $result = Ticket::where('userId', $id)->get();
+        $tickets = Ticket::where('userId', $id)->get();
 
-        return json_encode($result);
+        $results = [];
+
+        foreach ($tickets as $ticket) {
+            $event = $ticket->Event;
+            $category = $event->category;
+            $pack = $ticket->EventPackage;
+
+            $result = [
+                "ticket" => [
+                    "status" => $ticket->status,
+                    "date" => $ticket->date,
+                ],
+                "event" => $event,
+                "category" => $category,
+                "pack" => $pack
+            ];
+
+            array_push($results, $result);
+        }
+
+
+        return json_encode($results);
     }
 
 

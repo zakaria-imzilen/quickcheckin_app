@@ -32,4 +32,9 @@ class Event extends Model
     {
         return $this->hasMany(EventPackage::class, 'eventId');
     }
+
+    public function Tickets()
+    {
+        return $this->hasMany(Ticket::class, 'eventId');
+    }
 }
