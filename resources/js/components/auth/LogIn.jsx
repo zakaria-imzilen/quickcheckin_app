@@ -18,14 +18,9 @@ const LogIn = () => {
     const handleLogIn = () => {
         const rgxEmail =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        const rgxPwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
         if (!rgxEmail.test(form.email)) {
             toast.error("Invalid email");
-            return;
-        }
-        if (!rgxPwd.test(form.pwd)) {
-            toast.error("Invalid password");
             return;
         }
 
