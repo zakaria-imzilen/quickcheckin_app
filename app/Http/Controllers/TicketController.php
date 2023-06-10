@@ -122,4 +122,30 @@ class TicketController extends Controller
             "created" => $allGood
         ]);
     }
+
+    // Stats
+    // -- User
+    public function statsTickets($userId)
+    {
+        $tickets = Ticket::where('userId', $userId)->get();
+        $nbr = $tickets->count();
+        $sum = 0;
+
+        foreach ($tickets as $ticket) {
+            $pack = $ticket->EventPackage;
+            $sum += $pack['price'];
+        }
+
+        $result = ['nbrTickets' => $nbr, 'totalSpent' => $sum];
+
+        return $result;
+    }
+
+    // -- SA
+    public function totalTickets()
+    {
+        $result = Ticket::get()->count();
+
+        return $result;
+    }
 }

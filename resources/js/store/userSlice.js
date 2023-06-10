@@ -40,6 +40,12 @@ export const fetchMyTickets = createAsyncThunk(
     }
 );
 
+export const fetchMyStats = createAsyncThunk("us/fetch/stats", async (id) => {
+    const result = await fetch("/api/stats/nbrtickets/" + id);
+
+    return result.json();
+});
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -55,6 +61,10 @@ const userSlice = createSlice({
         myTickets: {
             data: null,
             status: null,
+        },
+        stats: {
+            status: null,
+            data: null,
         },
     },
     reducers: {
@@ -122,6 +132,19 @@ const userSlice = createSlice({
         builder.addCase(fetchMyTickets.pending, (state) => {
             state.myTickets.data = [];
             state.myTickets.status = "pending";
+        });
+
+        // Stats
+        builder.addCase(fetchMyStats.fulfilled, (state, { payload }) => {
+            state.stats.data = payload;
+            state.stats.status = true;
+        });
+        builder.addCase(fetchMyStats.pending, (state) => {
+            state.stats.status = "pending";
+        });
+        builder.addCase(fetchMyStats.rejected, (state) => {
+            state.stats.data = [];
+            state.stats.status = false;
         });
     },
 });

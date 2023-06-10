@@ -13,12 +13,16 @@ require('superadmins.php');
 require('organizers.php');
 // >>
 
-// << Use rRoutes
+// << User Routes
 require('users.php');
 // >>
 
-// << Use rRoutes
+// << Tickets Routes
 require('tickets.php');
+// >>
+
+// << Stats Routes
+require('stats.php');
 // >>
 
 Route::post('/refunds/edit', [RefundController::class, 'editRefund']);

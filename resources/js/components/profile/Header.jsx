@@ -16,7 +16,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const Header = (props) => {
+const Header = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.event.categories);
     const { info, status } = useSelector((state) => state.user.loggedIn);
