@@ -46,6 +46,7 @@ const userSlice = createSlice({
         loggedIn: {
             status: null,
             info: null,
+            role: "guest",
         },
         signUp: {
             status: null,
@@ -61,6 +62,7 @@ const userSlice = createSlice({
             state.loggedIn = {
                 status: false,
                 info: null,
+                role: "guest",
             };
 
             state.myTickets = {
@@ -94,6 +96,7 @@ const userSlice = createSlice({
             state.loggedIn.status = payload.found;
             if (payload.found === true) {
                 state.loggedIn.info = payload.info;
+                state.loggedIn.role = "user";
             } else {
                 state.loggedIn.info = null;
             }

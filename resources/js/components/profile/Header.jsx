@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/QuickCheckin_black.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../store/eventSlice";
+import { Menu, Transition } from "@headlessui/react";
+
+const navigation = [
+    { name: "Dashboard", href: "#", current: true },
+    { name: "Team", href: "#", current: false },
+    { name: "Projects", href: "#", current: false },
+    { name: "Calendar", href: "#", current: false },
+];
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+}
 
 const Header = (props) => {
     const dispatch = useDispatch();
@@ -25,21 +37,6 @@ const Header = (props) => {
                         />
                     </Link>
                     <div className="flex items-center md:order-2">
-                        <button
-                            type="button"
-                            className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                            id="user-menu-button"
-                            aria-expanded="false"
-                            data-dropdown-toggle="user-dropdown"
-                            data-dropdown-placement="bottom"
-                        >
-                            <span className="sr-only">Open user menu</span>
-                            <img
-                                className="w-8 h-8 rounded-full object-cover"
-                                src={props.infoUser[0].photoURL}
-                                alt="user photo"
-                            />
-                        </button>
                         {/* <!-- Dropdown menu --> */}
                         <div
                             className="z-50 hidden my-4 text-base list-none bg-transparent divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -70,28 +67,76 @@ const Header = (props) => {
                                 ))}
                             </ul>
                         </div>
-                        <button
-                            data-collapse-toggle="mobile-menu-2"
-                            type="button"
-                            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            aria-controls="mobile-menu-2"
-                            aria-expanded="false"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            <svg
-                                className="w-6 h-6"
-                                aria-hidden="true"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
+                        {/* Profile dropdown */}
+                        <Menu as="div" className="relative ml-3">
+                            <div>
+                                <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span className="sr-only">
+                                        Open user menu
+                                    </span>
+                                    <img
+                                        className="h-8 w-8 rounded-full"
+                                        src={`${
+                                            info.imageURL === ""
+                                                ? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                : info.imageURL
+                                        }`}
+                                        alt=""
+                                    />
+                                </Menu.Button>
+                            </div>
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
                             >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                        </button>
+                                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    active ? "bg-gray-100" : "",
+                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                )}
+                                            >
+                                                Your Profile
+                                            </a>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    active ? "bg-gray-100" : "",
+                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                )}
+                                            >
+                                                Settings
+                                            </a>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    active ? "bg-gray-100" : "",
+                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                )}
+                                            >
+                                                Sign out
+                                            </a>
+                                        )}
+                                    </Menu.Item>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
                     </div>
                     <div
                         className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"

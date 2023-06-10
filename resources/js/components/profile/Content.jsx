@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const Content = (props) => {
-    const [infoUseru, setInfoUser] = useState([]);
-
-    useEffect(() => {
-        if (props.infoUser.length > 0) {
-            setInfoUser(props.infoUser[0]);
-        }
-    }, [props]);
-
-    const handleInputChange = (e, id, field) => {
-        const updatedTableData = { ...infoUseru, [field]: e.target.value };
-        setInfoUser(updatedTableData);
-    };
-
-    const handleNewDataUpdated = () => {
-        console.log("new data ==> ", infoUseru);
-    };
+    const { info } = useSelector((state) => state.user.loggedIn);
 
     return (
         <div className="pb-20">
@@ -29,7 +15,7 @@ const Content = (props) => {
                         <div className="flex flex-col items-center">
                             <img
                                 className="w-24 h-24 rounded-full shadow-lg object-cover"
-                                src={props.infoUser[0].photoURL}
+                                src={info.imageURL}
                                 alt="image"
                             />
                             <div className="flex mt-2 mb-4 space-x-3 md:mt-6">

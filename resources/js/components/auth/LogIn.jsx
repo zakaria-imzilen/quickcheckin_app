@@ -30,13 +30,9 @@ const LogIn = () => {
 
     useEffect(() => {
         if (loggedInResponse.status === true) {
-            toast.success(
-                "Logged in successfuly, you will be redirected to your profile in a few seconds"
-            );
+            toast.success("Logged in successfuly.");
 
-            setTimeout(() => {
-                navigate("/profile");
-            }, 1500);
+            navigate("/profile");
         } else if (loggedInResponse.status === false) {
             toast.error("Incorrect credentials");
         }

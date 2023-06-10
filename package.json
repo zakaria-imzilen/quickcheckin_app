@@ -28,7 +28,7 @@
         "web-vitals": "^2.1.4"
     },
     "dependencies": {
-        "@headlessui/react": "^1.7.14",
+        "@headlessui/react": "^1.7.15",
         "@vitejs/plugin-react": "^3.0.1",
         "flowbite-react": "^0.4.4",
         "react": "^18.2.0",
