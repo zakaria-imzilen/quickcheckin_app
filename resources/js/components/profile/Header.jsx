@@ -65,25 +65,24 @@ const Header = () => {
                                         </li>
                                     </Link>
                                 ))}
-                            </ul>
-                            <button
-                                className="border-2 flex gap-3 border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white transition-all rounded-md font-sans uppercase px-6 py-2"
-                                onClick={() => setOpen(true)}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    className="w-6 h-6"
+                                <button
+                                    className="border-2 border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white transition-all rounded-md font-sans uppercase px-2 py-2"
+                                    onClick={() => setOpen(true)}
                                 >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                <span>Cart</span>
-                            </button>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </ul>
                         </div>
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">

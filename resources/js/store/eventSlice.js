@@ -39,6 +39,13 @@ export const displayEventDetails = createAsyncThunk(
     }
 );
 
+export const searchEvent = createAsyncThunk("/event/search", async (q) => {
+    const response = await fetch(`/api/events/search/${q}`);
+    const data = await response.json();
+
+    return data;
+});
+
 const eventSlice = createSlice({
     name: "event",
     initialState: {
@@ -46,6 +53,11 @@ const eventSlice = createSlice({
         dataResponse: {
             status: null,
             error: null,
+        },
+
+        search: {
+            status: null,
+            data: [],
         },
 
         categories: [],
@@ -69,6 +81,12 @@ const eventSlice = createSlice({
     reducers: {
         resetCtgEvts: (state) => {
             state.currentCategoryEvents = [];
+        },
+        resetSearchEvts: (state) => {
+            state.search = {
+                status: null,
+                data: [],
+            };
         },
     },
     extraReducers: (builder) => {
@@ -131,8 +149,20 @@ const eventSlice = createSlice({
             state.currentEventResponse.status = false;
             state.currentEventResponse.error = error;
         });
+        // -- Search
+        builder.addCase(searchEvent.fulfilled, (state, { payload }) => {
+            state.search.status = true;
+            state.search.data = payload;
+        });
+        builder.addCase(searchEvent.pending, (state, { payload }) => {
+            state.search.status = "pending";
+        });
+        builder.addCase(searchEvent.rejected, (state, { payload }) => {
+            state.search.status = false;
+            state.search.data = [];
+        });
     },
 });
 
 export default eventSlice.reducer;
-export const { resetCtgEvts } = eventSlice.actions;
+export const { resetCtgEvts, resetSearchEvts } = eventSlice.actions;

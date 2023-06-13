@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { fetchCategories } from "../store/eventSlice";
+import {
+    fetchCategories,
+    resetSearchEvts,
+    searchEvent,
+} from "../store/eventSlice";
 
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -10,6 +14,8 @@ import { toast } from "react-toastify";
 import CartContent from "./CartContent";
 
 const Navbar = () => {
+    const [search, setSearch] = useState("");
+
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.event.categories);
     const categoriesResponse = useSelector(
@@ -17,6 +23,7 @@ const Navbar = () => {
     );
     const cart = useSelector((state) => state.cart.prep_tickets);
     const user = useSelector((state) => state.user.loggedIn);
+    const searchResp = useSelector((state) => state.event.search);
 
     const [open, setOpen] = useState(false);
 
@@ -37,6 +44,12 @@ const Navbar = () => {
             toast.error(categoriesResponse.error);
         }
     }, [categories]);
+
+    const handleSearch = ({ target }) => {
+        setSearch(target.value);
+
+        dispatch(searchEvent(target.value));
+    };
 
     return (
         <nav className="absolute w-screen bg-transparent border-gray-200 dark:bg-gray-900">
@@ -178,6 +191,89 @@ const Navbar = () => {
                     id="navbar-default"
                 >
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <form>
+                            <label
+                                htmlFor="search"
+                                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                            >
+                                Search
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="search"
+                                    id="search"
+                                    className="block px-4 py-2 w-60 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Search for Events..."
+                                    value={search}
+                                    onChange={handleSearch}
+                                />
+                                <button
+                                    type="submit"
+                                    className="text-white absolute inset-y-0 right-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg p-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-3 h-3"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                        />
+                                    </svg>
+                                </button>
+                                {searchResp.data.length !== 0 && (
+                                    <div className="shadow-lg p-3 bg-white w-60 h-80 overflow-y-scroll overflow-x-hidden absolute -bottom-80 left-0 space-y-3">
+                                        {searchResp.data.map((searchedEv) => (
+                                            <Link
+                                                to={`/event/${searchedEv.slug}`}
+                                                className="w-full"
+                                                onClick={() => {
+                                                    dispatch(resetSearchEvts());
+                                                }}
+                                            >
+                                                <div className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-4 h-4"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+                                                        />
+                                                    </svg>
+                                                    <span class="flex-1 ml-3 whitespace-nowrap font-semibold">
+                                                        {searchedEv.name
+                                                            .length > 16
+                                                            ? searchedEv.name.slice(
+                                                                  0,
+                                                                  16
+                                                              ) + "..."
+                                                            : searchedEv.name}
+                                                        <br />
+                                                        <span className="font-normal uppercase text-xs">
+                                                            {
+                                                                searchedEv.location
+                                                            }
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </form>
+
                         {categories.map((category) => (
                             <Link
                                 to={`/category/${category.id}`}
@@ -198,7 +294,7 @@ const Navbar = () => {
                         ))}
                     </ul>
                     <button
-                        className="border-2 flex gap-3 border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white transition-all rounded-md font-sans uppercase px-6 py-2"
+                        className="border-2 border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white transition-all rounded-md font-sans uppercase px-2 py-2"
                         onClick={() => setOpen(true)}
                     >
                         <svg
@@ -213,7 +309,6 @@ const Navbar = () => {
                                 clipRule="evenodd"
                             />
                         </svg>
-                        <span>Cart</span>
                     </button>
 
                     {/* Auth */}

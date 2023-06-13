@@ -28,17 +28,20 @@ class EventController extends Controller
 
     public function searchEvent(Request $request, $q)
     {
-        $result = Event::where('name', 'LIKE', '%' . $q . '%')->get();
+        $result = [];
+        $eventRes = Event::where('name', 'LIKE', '%' . $q . '%')->get()->toArray();
+        $resultDesc = Event::where('description', 'LIKE', '%' . $q . '%')->get()->toArray();
+        $resultLoc = Event::where('location', 'LIKE', '%' . $q . '%')->get()->toArray();
 
-        if (count($result) === 0) {
-            $resultDesc = Event::where('description', 'LIKE', '%' . $q . '%')->get();
+        $combinedArray = array_merge($eventRes, $resultDesc, $resultLoc);
 
-            if (count($resultDesc) === 0) {
-                $resultLoc = Event::where('location', 'LIKE', '%' . $q . '%')->get();
-                return $resultLoc;
+        // Loop through the combined array
+        foreach ($combinedArray as $object) {
+            // Check if the object already exists in the result array
+            if (!in_array($object, $result)) {
+                // Add the unique object to the result array
+                $result[] = $object;
             }
-
-            return $resultDesc;
         }
 
         return $result;
