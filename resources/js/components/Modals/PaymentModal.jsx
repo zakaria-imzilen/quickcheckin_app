@@ -103,10 +103,12 @@ const PaymentModal = ({ setOpen, open }) => {
                 expiry: { month: "", year: "" },
                 securityNum: "",
             });
-            dispatch(reset());
+
+            setTimeout(() => {
+                dispatch(reset());
+            }, 1500);
         } else if (response.status === false) {
             toast.error("An error occured, please try again !");
-            dispatch(reset());
         }
     }, [response]);
 

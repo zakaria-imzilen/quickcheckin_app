@@ -12,7 +12,6 @@ function App() {
     const role = useSelector((state) => state.user.loggedIn.role);
     return (
         <>
-            {console.log(routes.guest)}
             <Routes>
                 {routes[role].map((route) => (
                     <Route

@@ -25,10 +25,8 @@ const paymentSlice = createSlice({
     },
     reducers: {
         reset: (state) => {
-            state = {
-                status: null,
-                message: null,
-            };
+            state.message = null;
+            state.status = null;
         },
     },
     extraReducers: (build) => {

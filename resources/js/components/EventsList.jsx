@@ -43,24 +43,18 @@ const EventsList = ({ page }) => {
     useEffect(() => {
         if (page === "home") {
             dispatch(fetchEvents(0));
-        } else {
+        } else if (page === "category") {
             dispatch(
                 fetchCategoryEvents({
                     id: categoryId,
-                    skip: categoryEvents.length,
+                    skip: 0,
                 })
             );
         }
-    }, [page]);
+    }, [page, categoryId]);
 
     useEffect(() => {
         dispatch(resetCtgEvts());
-        dispatch(
-            fetchCategoryEvents({
-                id: categoryId,
-                skip: 0,
-            })
-        );
     }, [categoryId]);
 
     return (
