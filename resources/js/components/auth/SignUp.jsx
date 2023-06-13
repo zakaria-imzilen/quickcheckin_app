@@ -120,7 +120,7 @@ const SignUp = () => {
                         <div className="grid gap-6 mb-6 md:grid-cols-2 align-middle">
                             <div>
                                 <label
-                                    for="first_name"
+                                    htmlFor="first_name"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
                                     First name
@@ -145,7 +145,7 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label
-                                    for="last_name"
+                                    htmlFor="last_name"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
                                     Last name
@@ -169,7 +169,7 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label
-                                    for="phone"
+                                    htmlFor="phone"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
                                     Phone number
@@ -190,7 +190,7 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <label
-                                    for="phone"
+                                    htmlFor="phone"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
                                     Birth Date
@@ -226,7 +226,7 @@ const SignUp = () => {
                                     }
                                 />
                                 <label
-                                    for="default-radio-1"
+                                    htmlFor="default-radio-1"
                                     className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                     Male
@@ -248,7 +248,7 @@ const SignUp = () => {
                                     }
                                 />
                                 <label
-                                    for="default-radio-2"
+                                    htmlFor="default-radio-2"
                                     className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                     Female
@@ -258,7 +258,7 @@ const SignUp = () => {
 
                         <div className="mb-6">
                             <label
-                                for="email"
+                                htmlFor="email"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
                                 Email address
@@ -279,7 +279,7 @@ const SignUp = () => {
                         </div>
                         <div className="mb-6">
                             <label
-                                for="password"
+                                htmlFor="password"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
                                 Password
@@ -300,7 +300,7 @@ const SignUp = () => {
                         </div>
                         <div className="mb-6">
                             <label
-                                for="confirm_password"
+                                htmlFor="confirm_password"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
                                 Confirm password

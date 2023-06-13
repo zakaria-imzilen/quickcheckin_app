@@ -10,10 +10,7 @@ const CartContent = () => {
         <div>
             {cart.map((event) => {
                 return (
-                    <li
-                        key={event.id_ticket_category}
-                        className="flex py-6 w-full"
-                    >
+                    <li key={event.id} className="flex py-6 w-full">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                             <img
                                 src={event.eventDetails.image}

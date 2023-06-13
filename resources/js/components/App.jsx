@@ -15,6 +15,7 @@ function App() {
             <Routes>
                 {routes[role].map((route) => (
                     <Route
+                        key={route.id}
                         exact={route.id === 1}
                         path={route.path}
                         element={
