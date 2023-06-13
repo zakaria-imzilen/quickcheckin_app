@@ -41,7 +41,7 @@ const EventsList = ({ page }) => {
     }, [events, currentCategoryEventsResponse, page, response]);
 
     useEffect(() => {
-        if (page === "home") {
+        if (page === "home" && events.length === 0) {
             dispatch(fetchEvents(0));
         } else if (page === "category") {
             dispatch(
