@@ -50,9 +50,10 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         loggedIn: {
-            status: null,
+            status: false,
             info: null,
             role: "guest",
+            message: null,
         },
         signUp: {
             status: null,
@@ -109,6 +110,8 @@ const userSlice = createSlice({
                 state.loggedIn.role = "user";
             } else {
                 state.loggedIn.info = null;
+                state.loggedIn.role = "guest";
+                state.loggedIn.message = payload.message;
             }
         });
         builder.addCase(logMeIn.pending, (state) => {

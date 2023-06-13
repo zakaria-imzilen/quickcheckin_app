@@ -11,6 +11,7 @@ const PaymentModal = ({ setOpen, open }) => {
 
     const prep_tickets = useSelector((state) => state.cart.prep_tickets);
     const response = useSelector((state) => state.payment);
+    const user = useSelector((state) => state.user.loggedIn);
 
     const [form, setForm] = useState({
         cardNumber: "",
@@ -50,11 +51,6 @@ const PaymentModal = ({ setOpen, open }) => {
             toast.error("Your card is expired");
             return;
         }
-        console.log(currentDate.getMonth() + 1);
-        console.log(Number(form.expiry.month));
-
-        console.log(currentDate.getFullYear());
-        console.log(Number(form.expiry.year));
         if (
             currentDate.getFullYear() == Number("20" + form.expiry.year) &&
             currentDate.getMonth() + 1 > Number(form.expiry.month)
@@ -79,7 +75,7 @@ const PaymentModal = ({ setOpen, open }) => {
                     date: mysqlDatetime,
                     packId: ticket.packageDetails.id,
                     eventId: ticket.eventDetails.id,
-                    userId: 1, // @note TO CHANGE
+                    userId: user.info.id, // @note TO CHANGE
                     status: "active",
                 });
             }
@@ -89,7 +85,7 @@ const PaymentModal = ({ setOpen, open }) => {
             expiringDate: form.expiry.month + "/" + form.expiry.year,
             holderFullName: form.name,
             securityNumber: form.securityNum,
-            userId: 1, // @note TO CHANGE
+            userId: user.info.id, // @note TO CHANGE
         };
         let token = document.head.querySelector('meta[name="csrf-token"]');
         dispatch(passPayment({ tickets, payment, token }));

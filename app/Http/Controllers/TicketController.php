@@ -12,12 +12,11 @@ class TicketController extends Controller
     public function displayTickets($id)
     {
         $tickets = Ticket::where('userId', $id)->get();
-
         $results = [];
 
         foreach ($tickets as $ticket) {
             $event = $ticket->Event;
-            $category = $event->category;
+            $category = $event->Category;
             $pack = $ticket->EventPackage;
 
             $result = [

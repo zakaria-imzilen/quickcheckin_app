@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import CartContent from "../components/CartContent";
 import { Link } from "react-router-dom";
 import PaymentModal from "../components/Modals/PaymentModal";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
     const cart = useSelector((state) => state.cart.prep_tickets);
+    const user = useSelector((state) => state.user.loggedIn);
 
     // Payment Modal
     const [open, setOpen] = useState(false);
@@ -25,12 +27,21 @@ const Checkout = () => {
         return totalHT + (totalHT * 20) / 100;
     });
 
+    const handleProcessToPay = () => {
+        if (user.status && user.role === "user" && user.info !== null) {
+            setOpen(true);
+            return;
+        }
+        toast.warning("Login to proceed to the payment");
+        return;
+    };
+
     return (
         <div>
             <Navbar />
             <PaymentModal open={open} setOpen={setOpen} />
             <section className="bg-white dark:bg-gray-900">
-                <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12">
+                <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12 lg:py-24">
                     <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white uppercase">
                         Checkout
                     </h1>
@@ -72,13 +83,13 @@ const Checkout = () => {
                         <div className="flex w-full gap-6">
                             <div className="cart w-3/4">
                                 <h3 className="text-xl uppercase font-thin">
-                                    Events
+                                    Tickets added to the cart 🛒
                                 </h3>
                                 <CartContent />
                             </div>
 
                             {/* Summary Card */}
-                            <div className="w-1/4 py-8 px-6 summary flex flex-col gap-y-5 bg-slate-800 text-white rounded-sm">
+                            <div className="w-1/4 py-8 px-6 summary flex flex-col gap-y-5 bg-slate-100 shadow-lg text-slate-700 rounded-sm">
                                 <h2 className="uppercase font-black text-2xl">
                                     Summary
                                 </h2>
@@ -96,8 +107,8 @@ const Checkout = () => {
                                 </div>
 
                                 <button
-                                    className="w-full rounded-sm py-4 uppercase font-light bg-slate-600 text-white hover:bg-blue-400 transition-all"
-                                    onClick={() => setOpen(true)}
+                                    className="w-full rounded-sm py-4 uppercase font-light bg-slate-200 text-slate-700 hover:bg-blue-400 transition-all"
+                                    onClick={() => handleProcessToPay()}
                                 >
                                     Proceed to Payment
                                 </button>

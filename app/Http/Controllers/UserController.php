@@ -43,7 +43,8 @@ class UserController extends Controller
             ]);
         }
         return json_encode([
-            "found" => false
+            "found" => false,
+            "message" => "Not found"
         ]);
     }
 

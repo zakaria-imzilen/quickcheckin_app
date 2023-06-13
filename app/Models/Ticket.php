@@ -19,11 +19,11 @@ class Ticket extends Model
 
     public function Event()
     {
-        return $this->hasOne(Event::class, 'id');
+        return $this->hasOne(Event::class, 'id', 'eventId');
     }
 
     public function EventPackage()
     {
-        return $this->hasOne(EventPackage::class, 'id');
+        return $this->hasOne(EventPackage::class, 'id', 'packId');
     }
 }

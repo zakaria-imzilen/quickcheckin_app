@@ -33,7 +33,10 @@ const LogIn = () => {
             toast.success("Logged in successfuly.");
 
             navigate("/profile");
-        } else if (loggedInResponse.status === false) {
+        } else if (
+            loggedInResponse.status === false &&
+            loggedInResponse.message === "Not found"
+        ) {
             toast.error("Incorrect credentials");
         }
     }, [loggedInResponse]);

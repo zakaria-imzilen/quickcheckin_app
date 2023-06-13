@@ -16,6 +16,7 @@ const Navbar = () => {
         (state) => state.event.categoriesResponse
     );
     const cart = useSelector((state) => state.cart.prep_tickets);
+    const user = useSelector((state) => state.user.loggedIn);
 
     const [open, setOpen] = useState(false);
 
@@ -147,7 +148,7 @@ const Navbar = () => {
                     <img
                         src={Logo}
                         className="h-10 w-32  mr-3 object-cover"
-                        alt="Flowbite Logo"
+                        alt="QuickCheckin Logo"
                     />
                 </Link>
                 <button
@@ -218,7 +219,7 @@ const Navbar = () => {
                     {/* Auth */}
                     <div className="flex gap-3 items-center">
                         <Link
-                            to="/signup"
+                            to={user.status === false ? "/login" : "/profile"}
                             className="p-2 bg-sky-300 hover:bg-sky-600 text-white transition-colors rounded-full"
                         >
                             <svg
