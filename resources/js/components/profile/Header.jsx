@@ -4,6 +4,7 @@ import Logo from "../../assets/QuickCheckin_black.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../store/eventSlice";
 import { Menu, Transition } from "@headlessui/react";
+import { logMeOut } from "../../store/userSlice";
 
 const navigation = [
     { name: "Dashboard", href: "#", current: true },
@@ -140,15 +141,17 @@ const Header = () => {
                                     </Menu.Item>
                                     <Menu.Item>
                                         {({ active }) => (
-                                            <a
-                                                href="#"
+                                            <button
+                                                onClick={() =>
+                                                    dispatch(logMeOut())
+                                                }
                                                 className={classNames(
                                                     active ? "bg-gray-100" : "",
-                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                    "block px-4 py-2 text-sm transition-all bg-red-400 hover:bg-red-600 text-white w-full rounded-lg"
                                                 )}
                                             >
                                                 Sign out
-                                            </a>
+                                            </button>
                                         )}
                                     </Menu.Item>
                                 </Menu.Items>
