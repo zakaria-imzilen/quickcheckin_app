@@ -61,4 +61,12 @@ class UserController extends Controller
             "updated" => false
         ]);
     }
+
+    // SA
+    public function userEdit($id, Request $request)
+    {
+        $result = User::find($id)->update($request->all());
+
+        return ["updated" => $result];
+    }
 }

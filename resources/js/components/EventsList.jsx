@@ -63,24 +63,24 @@ const EventsList = ({ page }) => {
             <div className="my-10 flex justify-center gap-y-4 gap-x-4 flex-wrap max-w-screen-2xl mx-auto">
                 {page === "home"
                     ? events.map(({ event }) => (
-                          <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-min">
+                          <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-min">
                               <Link to={`/event/${event.slug}`}>
                                   <img
-                                      class="rounded-t-lg"
+                                      className="rounded-t-lg"
                                       src={event.imageURL}
                                       alt=""
                                   />
                               </Link>
-                              <div class="p-5 relative">
+                              <div className="p-5 relative">
                                   <div className="absolute top-0 right-0 px-4 py-2 text-xs font-sans uppercase bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-neutral-300 via-neutral-300 to-indigo-100 rounded-l-xl font-semibold">
                                       {event.location} - {event.date}
                                   </div>
                                   <Link to={`/event/${event.slug}`}>
-                                      <h5 class="mb-2 mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                      <h5 className="mb-2 mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                           {event.name}
                                       </h5>
                                   </Link>
-                                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                       {event.description.length > 70
                                           ? event.description.slice(0, 70) +
                                             "..."
@@ -88,7 +88,7 @@ const EventsList = ({ page }) => {
                                   </p>
                                   <Link
                                       to={`/event/${event.slug}`}
-                                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                   >
                                       Buy Now
                                       <svg

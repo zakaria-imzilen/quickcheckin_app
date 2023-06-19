@@ -25,6 +25,10 @@ require('tickets.php');
 require('stats.php');
 // >>
 
+// << Stats Routes
+require('editdata.php');
+// >>
+
 Route::post('/refunds/edit', [RefundController::class, 'editRefund']);
 
 Route::get('/{any}', function () {

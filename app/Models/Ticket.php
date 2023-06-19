@@ -26,4 +26,9 @@ class Ticket extends Model
     {
         return $this->hasOne(EventPackage::class, 'id', 'packId');
     }
+
+    public function User()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }

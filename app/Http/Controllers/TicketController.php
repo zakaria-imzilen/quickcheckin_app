@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Organizer;
 use App\Models\Refund;
 use App\Models\Ticket;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -146,5 +149,76 @@ class TicketController extends Controller
         $result = Ticket::get()->count();
 
         return $result;
+    }
+
+    // -- SA
+    public function sp_stats()
+    {
+        $nbr_tickets_sold = Ticket::get()->count();
+        $sum = 0;
+        $events = Event::get()->count();
+
+        $tickets = Ticket::get();
+        foreach ($tickets as $ticket) {
+            $pack = $ticket->EventPackage;
+            $sum += $pack['price'];
+        }
+
+        $result = [
+            'nbr_tickets_sold' => $nbr_tickets_sold,
+            'total_transactions' => $sum,
+            'total_events' => $events
+        ];
+
+        return $result;
+    }
+
+    // -- SA
+    public function statsSATickets()
+    {
+        $result = [];
+
+        $tickets = Ticket::limit(20)->get();
+        foreach ($tickets as $ticket) {
+            $pack = $ticket->EventPackage;
+            $event = $ticket->Event;
+            $user = $ticket->User;
+
+            array_push($result, ['ticket' => $ticket, 'pack' => $pack, 'event' => $event, 'user' => $user]);
+        }
+
+        return $result;
+    }
+
+    // -- SA
+    public function statsSAUsers()
+    {
+        $tickets = User::limit(20)->get();
+
+        return $tickets;
+    }
+
+    // -- SA
+    public function statsSAOrganizers()
+    {
+        $organizers = Organizer::limit(20)->get();
+
+        return $organizers;
+    }
+
+    // -- SA
+    public function statsSAPayments()
+    {
+        $payments = Payment::limit(60)->get();
+
+        return $payments;
+    }
+
+    // -- SA -- EDIT
+    public function ticketEdit($id, Request $request)
+    {
+        $result = Ticket::find($id)->update($request->all());
+
+        return ['updated' => $result];
     }
 }

@@ -6,6 +6,11 @@ import Checkout from "../pages/Checkout";
 import DetailsEvent from "../pages/DetailsEvent";
 import Home from "../pages/Home";
 import ProfilePage from "../pages/ProfilePage";
+import Dashboard from "../pages/dashboard";
+import Organizers from "../pages/dashboard/Organizers";
+import Payments from "../pages/dashboard/Payments";
+import Tickets from "../pages/dashboard/Tickets";
+import Users from "../pages/dashboard/Users";
 
 const guest = [
     {
@@ -46,16 +51,6 @@ const guest = [
 ];
 
 export default {
-    /*
-        <Route exact path="/" element={<Home />} />
-        <Route path="/category/:categoryId" element={<Category />} />
-        <Route path="/event/:slug" element={<DetailsEvent />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<LogIn />} />
-
-        <Route path="/profile" element={<ProfilePage />} />
-    */
     guest,
     user: [
         ...guest.filter((route) => route.path !== "/signup"),
@@ -65,6 +60,32 @@ export default {
             element: ProfilePage,
         },
     ],
-    superadmin: [],
+    superadmin: [
+        {
+            id: 1,
+            path: "/",
+            element: Dashboard,
+        },
+        {
+            id: 2,
+            path: "/tickets",
+            element: Tickets,
+        },
+        {
+            id: 3,
+            path: "/users",
+            element: Users,
+        },
+        {
+            id: 4,
+            path: "/organizers",
+            element: Organizers,
+        },
+        {
+            id: 5,
+            path: "/payments",
+            element: Payments,
+        },
+    ],
     organizer: [],
 };

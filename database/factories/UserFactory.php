@@ -22,8 +22,8 @@ class UserFactory extends Factory
             'lastName' => fake()->lastName(),
             'email' => fake()->email(),
             'pwd' => fake()->password(),
-            'sexe' => fake()->realText(10),
-            "birthDate" => fake()->dateTimeThisCentury(),
+            'sexe' => fake()->randomElement(['male', 'female']),
+            "birthDate" => fake()->dateTimeBetween("-40years", "-18years"),
             'imageURL' => fake()->imageUrl(),
         ];
     }
