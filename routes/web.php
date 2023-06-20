@@ -1,18 +1,36 @@
 <?php
+use App\Http\Controllers\RefundController;
 
-use Illuminate\Support\Facades\Route;
+// << Event Routes
+require('events.php');
+// >>
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// << SuperAdmin Routes
+require('superadmins.php');
+// >>
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// << Organizer Routes
+require('organizers.php');
+// >>
+
+// << User Routes
+require('users.php');
+// >>
+
+// << Tickets Routes
+require('tickets.php');
+// >>
+
+// << Stats Routes
+require('stats.php');
+// >>
+
+// << Stats Routes
+require('editdata.php');
+// >>
+
+Route::post('/refunds/edit', [RefundController::class, 'editRefund']);
+
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');

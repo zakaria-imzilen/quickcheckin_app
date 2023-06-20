@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('refunds', function (Blueprint $table) {
             $table->id();
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->string('email')->unique();
-            $table->string('pwd');
-            $table->string('sexe');
-            $table->date("birthDate");
-            $table->string('imageURL')->nullable();
+            $table->string("status");
+            $table->date("date");
+            $table->unsignedBigInteger("ticketId");
+
+            $table->foreign("ticketId")->references("id")->on("tickets");
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('refunds');
     }
 };
