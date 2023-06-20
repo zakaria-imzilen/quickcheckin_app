@@ -119,6 +119,23 @@ export const editUser = createAsyncThunk(
     }
 );
 
+export const editOrganizer = createAsyncThunk(
+    "/sa/edit/organizer",
+    async ({ token, id, data }) => {
+        const result = await fetch("/api/sa/organizers/" + id, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "X-CSRF-TOKEN": token.content,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return result.json();
+    }
+);
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -161,6 +178,9 @@ const userSlice = createSlice({
         adminOrganizers: {
             status: null,
             data: null,
+            edit: {
+                status: null,
+            },
         },
         adminPayments: {
             status: null,
@@ -334,6 +354,17 @@ const userSlice = createSlice({
         });
         builder.addCase(editUser.rejected, (state, { error }) => {
             state.adminUsers.edit.status = error;
+        });
+
+        // OGANIZERS -- EDIT -- SA
+        builder.addCase(editOrganizer.fulfilled, (state, { payload }) => {
+            state.adminOrganizers.edit.status = payload.updated;
+        });
+        builder.addCase(editOrganizer.pending, (state) => {
+            state.adminOrganizers.edit.status = "pending";
+        });
+        builder.addCase(editOrganizer.rejected, (state, { error }) => {
+            state.adminOrganizers.edit.status = error;
         });
     },
 });

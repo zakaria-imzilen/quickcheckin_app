@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -66,6 +67,14 @@ class UserController extends Controller
     public function userEdit($id, Request $request)
     {
         $result = User::find($id)->update($request->all());
+
+        return ["updated" => $result];
+    }
+
+    // SA
+    public function organizerEdit($id, Request $request)
+    {
+        $result = Organizer::find($id)->update($request->all());
 
         return ["updated" => $result];
     }
