@@ -136,13 +136,30 @@ export const editOrganizer = createAsyncThunk(
     }
 );
 
+export const logMeInSA = createAsyncThunk(
+    "/sa/login",
+    async ({ token, data }) => {
+        const result = await fetch("/api/sa/auth/login", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "X-CSRF-TOKEN": token.content,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return result.json();
+    }
+);
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
         loggedIn: {
             status: false,
             info: null,
-            role: "superadmin",
+            role: "guest",
             message: null,
         },
         signUp: {
@@ -365,6 +382,26 @@ const userSlice = createSlice({
         });
         builder.addCase(editOrganizer.rejected, (state, { error }) => {
             state.adminOrganizers.edit.status = error;
+        });
+
+        // SA -- LOGIN
+        builder.addCase(logMeInSA.fulfilled, (state, { payload }) => {
+            state.loggedIn.status = payload.found;
+            if (payload.found === true) {
+                state.loggedIn.info = payload.data;
+                state.loggedIn.role = "superadmin";
+            } else {
+                state.loggedIn.info = null;
+                state.loggedIn.role = "guest";
+                state.loggedIn.message = payload.message;
+            }
+        });
+        builder.addCase(logMeInSA.pending, (state) => {
+            state.loggedIn.status = "pending";
+        });
+        builder.addCase(logMeInSA.rejected, (state) => {
+            state.loggedIn.status = false;
+            state.loggedIn.info = null;
         });
     },
 });

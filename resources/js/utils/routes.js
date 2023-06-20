@@ -1,6 +1,7 @@
 import LogIn from "../components/auth/LogIn";
 import Redirect from "../components/auth/Redirect";
 import SignUp from "../components/auth/SignUp";
+import Login from "../components/auth/admin/Login";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
 import DetailsEvent from "../pages/DetailsEvent";
@@ -45,6 +46,11 @@ const guest = [
     },
     {
         id: 7,
+        path: "/admin/login",
+        element: Login,
+    },
+    {
+        id: 8,
         path: "*",
         element: Redirect,
     },
@@ -61,6 +67,11 @@ export default {
         },
     ],
     superadmin: [
+        {
+            id: 0,
+            path: "/admin/login",
+            element: Login,
+        },
         {
             id: 1,
             path: "/",

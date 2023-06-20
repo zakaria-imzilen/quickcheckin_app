@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string("lastName");
             $table->string("pwd");
             $table->string("email")->unique();
-            $table->integer("auth_code");
-            $table->string("auth_expiring");
 
             $table->timestamps();
         });

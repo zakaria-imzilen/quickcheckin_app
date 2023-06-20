@@ -69,7 +69,7 @@ const Organizers = () => {
                 setForm={setForm}
             >
                 <form>
-                    <h3 className="text-xl mb-8">Edit User Data</h3>
+                    <h3 className="text-xl mb-8">Edit Organizer Data</h3>
 
                     <OrganizerForm
                         form={form}

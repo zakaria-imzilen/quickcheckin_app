@@ -4,5 +4,6 @@
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('sa/auth/login', [SuperAdminController::class, 'login']);
-Route::post('sa/auth/validate', [SuperAdminController::class, 'checkCode']);
+// Route::post('sa/auth/login', [SuperAdminController::class, 'login']);
+Route::post('/api/sa/auth/login', [SuperAdminController::class, 'loginV1']);
+Route::post('/api/sa/auth/validate', [SuperAdminController::class, 'checkCode']);

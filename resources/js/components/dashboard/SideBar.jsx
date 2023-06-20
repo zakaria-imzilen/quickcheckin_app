@@ -1,7 +1,12 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { logMeOut } from "../../store/userSlice";
 
 const SideBar = () => {
+    const user = useSelector((state) => state.user.loggedIn);
+    const dispatch = useDispatch();
+
     return (
         <aside
             id="logo-sidebar"
@@ -10,7 +15,10 @@ const SideBar = () => {
         >
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                 <h4 className="text-center mb-12">
-                    Welcome, <span className="font-extrabold">Zakaria</span>
+                    Welcome,{" "}
+                    <span className="font-extrabold">
+                        {user.info.firstName}
+                    </span>
                 </h4>
                 <ul className="space-y-2 font-medium">
                     <li>
@@ -129,6 +137,15 @@ const SideBar = () => {
                         </Link>
                     </li>
                 </ul>
+            </div>
+
+            <div className="absolute inset-x-0 bottom-10 text-center w-full">
+                <button
+                    onClick={() => dispatch(logMeOut())}
+                    className="px-5 py-2 rounded-sm bg-red-400 hover:bg-red-600 text-white font-extralight transition-all"
+                >
+                    Log Out
+                </button>
             </div>
         </aside>
     );

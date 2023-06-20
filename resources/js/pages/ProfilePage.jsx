@@ -25,7 +25,7 @@ const ProfilePage = () => {
             <div className="md:max-w-5xl mx-auto">
                 <Stats />
                 <TableOrders />
-                <Form />
+                {/* <Form /> */}
             </div>
         </main>
     );

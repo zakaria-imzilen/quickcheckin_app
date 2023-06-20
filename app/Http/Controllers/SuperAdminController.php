@@ -21,7 +21,18 @@ class SuperAdminController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function loginV1(Request $request)
+    {
+        $result = SuperAdmin::where('email', $request->email)->where('pwd', $request->pwd)->get();
+
+        if (count($result) === 1) {
+            return ["found" => true, "data" => $result[0]];
+        } else {
+            return ["found" => false, "message" => "SuperAdmin not found"];
+        }
+    }
+
+    public function loginV2(Request $request)
     {
         // Check if there is a superadmin with the crendentials provided
         $result = SuperAdmin::where('email', $request->email)->where('pwd', $request->pwd)->get();
